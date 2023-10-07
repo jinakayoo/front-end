@@ -7,7 +7,7 @@ import {mapdata} from "../assets/data/mapdata";
 const { kakao } = window;
 
 const PageContainer = styled.div`
-  height: 600px;
+  height: 400px;
 `;
 
 const EventMarkerContainer = ({ position, content }) => {
@@ -49,7 +49,7 @@ const MainPage = () => {
       {location && (
         <Map
           center={{ lat: location.latitude, lng: location.longitude }}
-          style={{ width: "800px", height: "600px" }}
+          style={{ width: "60%", height: "100%" }}
           level={3}
         >
           {mapdata.map((value) => (
