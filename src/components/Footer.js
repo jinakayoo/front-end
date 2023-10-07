@@ -6,6 +6,7 @@ const FooterContainer = styled.div`
   width: 100%;
   background-color: #313866;
   padding: 15px;
+  font-family: 'SCDream6';
 `;
 
 const Footer = () => {

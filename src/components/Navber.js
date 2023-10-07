@@ -6,6 +6,7 @@ const NavContainer = styled.div`
   width: 100%;
   background-color: #7C8BBE;
   padding: 15px;
+  font-family: 'SCDream4';
 `;
 
 const Navber = () => {
