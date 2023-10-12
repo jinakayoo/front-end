@@ -1,38 +1,81 @@
-// import React from "react";
-// import styled from "styled-components";
-// import DuringIcon from "../image/DuringIcon.png";
-// import FinishIcon from "../image/FinishIcon.png";
-// import PeopleIcon from "../image/PeopleIcon.png";
-// import SpaceIcon from "../image/SpaceIcon.png";
-// import StackIcon from "../image/StackIcon.png";
+import React from "react";
+import styled from "styled-components";
+import StackIcon from "../assets/icons/StackIcon.png";
+import FinishIcon from "../assets/icons/FinishIcon.png";
+import PlaceIcon from "../assets/icons/PlaceIcon.png";
+import PeopleIcon from "../assets/icons/PeopleIcon.png";
+import DuringIcon from "../assets/icons/DuringIcon.png";
 
+const PageContainer = styled.div`
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto auto;
+  padding: 10px 20px;
+  margin: 13px 0px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+`;
 
-// const PageContainer = styled.div`
-//   width: 400px;
-//   height: 150px;
-//   background: "#ffffff";
-//   border-radius: 5px;
-// `;
+const TitleContainer = styled.div`
+  grid-column: span 2;
+  color: #313866;
+  font-size: 24px;
+  font-family: "GmarketSans";
+  width: 100%;
+  margin-bottom: 7px;
+`;
 
-// function shotInform(image, title, content) {
-//   return (
-//     <>
-//       <img src={image} width={30} height={30} />
-//       <div>{title}</div>
-//       <div>{content}</div>
-//     </>
-//   );
-// }
+const ShortContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  align-items: center;
+  margin-bottom: 7px;
+`;
 
-// function InformCard(title, stack, finish, during, people, content) {
-//   return (
-//   <PageContainer>
-//     <div>{title}</div>
-//     <shotInform image={stack_img} title="스택" content={stack} />
-//     <shotInform image={finish_img} title="마감" content={finish} />
-//     <shotInform image={space_img} title="공간" content={during} />
-//     <shotInform image={people_img} title="인원" content={people} />
-//   </PageContainer>);
-// }
+const ShortTitleContainer = styled.div`
+  text-decoration: none;
+  text-align: center;
+  color: #7C8BBE;
+  font-size: 16px;
+  font-family: "SCDream4";
+  margin: 0px 5px;
+`;
 
-// export default InformCard;
+const ShortDetailContainer = styled.div`
+  text-decoration: none;
+  text-align: center;
+  color: #313866;
+  font-size: 16px;
+  font-family: "SCDream4";
+`;
+
+function shotInform(image, title, content, unit) {
+  return (
+    <ShortContainer>
+      <img src={image} alt={title} style={{ width: '12px', height: '12px', margin: '4px' }} />
+      <ShortTitleContainer>{title}</ShortTitleContainer>
+      <ShortDetailContainer>{content}{unit}</ShortDetailContainer>
+    </ShortContainer>
+  );
+}
+
+function InformCard({ title, stack, finish, during, people }) {
+  console.log(title, stack, finish, during, people)
+  return (
+    <PageContainer>
+      <TitleContainer>{title}</TitleContainer>
+      {shotInform(StackIcon, "스택", stack, "")}
+      {shotInform(FinishIcon, "마감", finish, "")}
+      {shotInform(PlaceIcon, "공간", during, "개월")}
+      {shotInform(PeopleIcon, "인원", people, "명")}
+      {shotInform(DuringIcon, "장소", during, "")}
+    </PageContainer>
+  );
+}
+
+export default InformCard;
