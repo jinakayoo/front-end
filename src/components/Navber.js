@@ -6,7 +6,7 @@ const NavContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 15px 20px;
   background-color: #7C8BBE;
   font-family: 'SCDream4';
 `;

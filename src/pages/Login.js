@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PageContainer = styled.div`
   display: flex;
-  height: 100vh;
+  padding: 50px;
   justify-content: center;
   align-items: center;
   background-color: #F6F1FB;
