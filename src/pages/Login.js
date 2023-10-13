@@ -9,14 +9,14 @@ const PageContainer = styled.div`
   align-items: center;
   background-color: #F6F1FB;
   flex-direction: column;
-`
+`;
 
 const TitleText = styled.p`
   margin: 0px 0px 50px 0px;
   font-size: 50px;
   font-family: 'GmarketSans';
   color: #7C8BBE;
-`
+`;
 
 const Box = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const Box = styled.div`
   background-color: #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   flex-direction: column;
-`
+`;
 
 const InputWrapper = styled.div`
   margin-bottom: 10px;
@@ -63,7 +63,7 @@ const HorizontalLine = styled.div`
   height: 2px;
   background-color: #7C8BBE;
   margin: 60px 0px 10px 0px;
-  `;
+`;
 
 const TextContent = styled.p`
   margin: 0px 10px 0px 0px;
@@ -77,11 +77,11 @@ const TextLink = styled(Link)`
   font-size: 18px;
   font-family: 'SCDream6';
   color: #313866;
-`
+`;
 
 const Text = styled.div`
   display: flex;
-`
+`;
 
 const Login = () => {
 
