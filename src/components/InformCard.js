@@ -15,10 +15,11 @@ const PageContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto auto auto;
   padding: 10px 20px;
-  margin: 13px 0px;
+  padding-bottom: 20px;
+  /* margin: 13px 0px; */
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 15px; */
+  border-radius: 15px;
 `;
 
 const TitleContainer = styled.div`
@@ -41,6 +42,7 @@ const ShortContainer = styled.div`
 const ShortTitleContainer = styled.div`
   text-decoration: none;
   text-align: center;
+  align-items: center;
   color: #7C8BBE;
   font-size: 16px;
   font-family: "SCDream4";
@@ -55,10 +57,47 @@ const ShortDetailContainer = styled.div`
   font-family: "SCDream4";
 `;
 
+const StackIconCSS = {
+  width: "14px",
+  height: "14px",
+  margin: "4px",
+};
+
+const FinishIconCSS = {
+  width: "14px",
+  height: "16px",
+  margin: "3px 4px",
+};
+
+const PlaceIconCSS = {
+  width: "10px",
+  height: "16px",
+  margin: "3px 6px",
+};
+
+const PeopleIconCSS = {
+  width: "16px",
+  height: "14px",
+  margin: "4px 3px",
+};
+
+const DuringIconCSS = {
+  width: "14px",
+  height: "14px",
+  margin: "4px",
+};
+
+
 function shotInform(image, title, content, unit) {
   return (
     <ShortContainer>
-      <img src={image} alt={title} style={{ width: '12px', height: '12px', margin: '4px' }} />
+      <img src={image} alt={title} style={
+        title === "스택" ? StackIconCSS :
+        title === "마감" ? FinishIconCSS :
+        title === "공간" ? PlaceIconCSS :
+        title === "인원" ? PeopleIconCSS :
+        title === "장소" ? DuringIconCSS : null
+      }/>
       <ShortTitleContainer>{title}</ShortTitleContainer>
       <ShortDetailContainer>{content}{unit}</ShortDetailContainer>
     </ShortContainer>

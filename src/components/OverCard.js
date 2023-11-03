@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import StackIcon from "../assets/icons/StackIcon.png";
 import FinishIcon from "../assets/icons/FinishIcon.png";
@@ -25,7 +25,8 @@ const TitleContainer = styled.div`
   font-size: 24px;
   font-family: "GmarketSans";
   width: 100%;
-  margin-bottom: 7px;
+  margin-top: -7px;
+  margin-bottom: 10px;
 `;
 
 const ShortContainer = styled.div`
@@ -33,7 +34,7 @@ const ShortContainer = styled.div`
   flex-direction: row;
   font-size: 16px;
   align-items: center;
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 `;
 
 const ShortTitleContainer = styled.div`
@@ -63,15 +64,53 @@ const ClosedButton = styled.button`
   cursor: pointer;
 `;
 
+const StackIconCSS = {
+  width: "14px",
+  height: "14px",
+  margin: "4px",
+};
+
+const FinishIconCSS = {
+  width: "14px",
+  height: "16px",
+  margin: "3px 4px",
+};
+
+const PlaceIconCSS = {
+  width: "10px",
+  height: "16px",
+  margin: "3px 6px",
+};
+
+const PeopleIconCSS = {
+  width: "16px",
+  height: "14px",
+  margin: "4px 3px",
+};
+
+const DuringIconCSS = {
+  width: "14px",
+  height: "14px",
+  margin: "4px",
+};
+
+
 function shotInform(image, title, content, unit) {
   return (
     <ShortContainer>
-      <img src={image} alt={title} style={{ width: '12px', height: '12px', margin: '4px' }} />
+      <img src={image} alt={title} style={
+        title === "스택" ? StackIconCSS :
+        title === "마감" ? FinishIconCSS :
+        title === "공간" ? PlaceIconCSS :
+        title === "인원" ? PeopleIconCSS :
+        title === "장소" ? DuringIconCSS : null
+      }/>
       <ShortTitleContainer>{title}</ShortTitleContainer>
       <ShortDetailContainer>{content}{unit}</ShortDetailContainer>
     </ShortContainer>
   );
 }
+
 
 function OverCard({ title, stack, finish, during, people, onClose }) {
   console.log(title, stack, finish, during, people);
