@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import StackIcon from "../assets/icons/StackIcon.png";
 import FinishIcon from "../assets/icons/FinishIcon.png";
 import PlaceIcon from "../assets/icons/PlaceIcon.png";
 import PeopleIcon from "../assets/icons/PeopleIcon.png";
 import DuringIcon from "../assets/icons/DuringIcon.png";
-import { useNavigate } from "react-router-dom";
 
 const PageContainer = styled.div`
   width: 335px;
@@ -17,8 +16,7 @@ const PageContainer = styled.div`
   padding: 10px 20px;
   margin: 13px 0px;
   background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 15px; */
+  border-radius: 15px;
 `;
 
 const TitleContainer = styled.div`
@@ -55,6 +53,16 @@ const ShortDetailContainer = styled.div`
   font-family: "SCDream4";
 `;
 
+const ClosedButton = styled.button`
+  color: #7C8BBE;
+  font-size: 16px;
+  font-family: "GmarketSans";
+  background-color: #ffffff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+`;
+
 function shotInform(image, title, content, unit) {
   return (
     <ShortContainer>
@@ -65,17 +73,23 @@ function shotInform(image, title, content, unit) {
   );
 }
 
-function InformCard({ title, stack, finish, during, people }) {
+function OverCard({ title, stack, finish, during, people, onClose }) {
+  console.log(title, stack, finish, during, people);
 
-  const navigate = useNavigate();
-
-  function moveDetail() {
-    navigate('/studydetail')
-  }
+  const handleClose = () => {
+    if (onClose) {
+      onClose(); // onClose 함수 호출
+    }
+  };
 
   return (
-    <PageContainer onClick={moveDetail}>
-      <TitleContainer>{title}</TitleContainer>
+    <PageContainer>
+      <TitleContainer>
+        {title}
+        <ClosedButton onClick={handleClose} style={{ float: 'right', cursor: 'pointer' }}>
+          X
+        </ClosedButton>
+      </TitleContainer>
       {shotInform(StackIcon, "스택", stack, "")}
       {shotInform(FinishIcon, "마감", finish, "")}
       {shotInform(PlaceIcon, "공간", during, "개월")}
@@ -85,4 +99,4 @@ function InformCard({ title, stack, finish, during, people }) {
   );
 }
 
-export default InformCard;
+export default OverCard;
