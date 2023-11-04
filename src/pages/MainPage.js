@@ -3,6 +3,7 @@ import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import InformCard from "../components/InformCard";
 import { mapdata } from "../assets/data/mapdata";
+import { Link } from 'react-router-dom';
 
 const { kakao } = window;
 
@@ -45,16 +46,18 @@ const StudyList = () => {
 
   return (
     <ListContainer>
-      {studiesToDisplay.map((value) => (
-        <InformCard
-          key={`Study-${value.title}`}
-          position={value.latlng}
-          title={value.title}
-          stack={value.stack}
-          finish={value.finish}
-          during={value.during}
-          people={value.people}
-        />
+      {studiesToDisplay.map((value, index) => (
+        <Link to={`/detail/${index}`} style={{ textDecoration: 'none' }}>
+          <InformCard
+            key={`Study-${value.title}`}
+            position={value.latlng}
+            title={value.title}
+            stack={value.stack}
+            finish={value.finish}
+            during={value.during}
+            people={value.people}
+          />
+        </Link>
       ))}
       <PaginationContainer>
         {mapdata.length > studiesPerPage && (

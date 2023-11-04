@@ -5,7 +5,7 @@ const PageContainer = styled.div`
   height: 300px;
 `
 
-const StudyDetailPage = () => {
+const StudyDetailPage1 = () => {
 
   return (
     <PageContainer>
@@ -14,4 +14,4 @@ const StudyDetailPage = () => {
   );
 };
 
-export default StudyDetailPage;
+export default StudyDetailPage1;
