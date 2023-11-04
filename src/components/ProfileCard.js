@@ -5,8 +5,8 @@ import PhoneIcon from "../assets/icons/PhoneIcon.png";
 import MessageIcon from "../assets/icons/MessageIcon.png";
 
 const PageContainer = styled.div`
-  height: 450px;
-  width: 300px;
+  height: 370px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,8 +17,8 @@ const PageContainer = styled.div`
 `
 
 const ProfileImageContainer = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,8 +28,8 @@ const ProfileImageContainer = styled.div`
 `
 
 const ProfileImage = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   margin-top: 20px;
   margin-bottom: 20px;
 `

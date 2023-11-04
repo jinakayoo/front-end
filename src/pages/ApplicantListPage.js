@@ -13,6 +13,8 @@ const PickContainer = styled.div`
   flex-direction: row;
   display: flex;
   align-items: center;
+  padding-top: 50px;
+  margin-left: 60px;
 `;
 
 const PickText = styled.div`
@@ -25,8 +27,10 @@ const PickText = styled.div`
 const ListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr); 
-  gap: 20px;
-  padding: 20px;
+  gap: 70px;
+  padding: 40px;
+  justify-items: center;
+
 `;
 
 const PickTitle = () => {
