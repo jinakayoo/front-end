@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 
+import StarIcon from "../assets/icons/StarIcon.png";
+
 const PageContainer = styled.div`
   padding: 50px 100px 50px 100px;
   display: flex;
@@ -28,7 +30,7 @@ const HorizontalLine = styled.div`
 `;
 
   const TitleText = styled.p`
-  margin: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 10px;
   font-size: 24px;
   font-family: 'GmarketSans';
   color: #7C8BBE;
@@ -92,11 +94,20 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const RowWrapper = styled.div`
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+`;
+
 const StudyRecruitPage = () => {
 
   return (
     <PageContainer>
-      <TitleText>프로젝트 기본 정보</TitleText>
+      <RowWrapper>
+        <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '20px'}} />
+        <TitleText>프로젝트 기본 정보</TitleText>
+      </RowWrapper>
       <HorizontalLine />
       <Info>
         <Inputbox>
@@ -130,7 +141,10 @@ const StudyRecruitPage = () => {
           </InputWrapper>
         </Inputbox>
       </Info>
-      <TitleText>프로젝트 소개</TitleText>
+      <RowWrapper>
+        <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '20px'}} />
+        <TitleText>프로젝트 소개</TitleText>
+      </RowWrapper>
       <HorizontalLine />
       <Intro>
         <TextInput>제목</TextInput>

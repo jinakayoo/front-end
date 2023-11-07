@@ -2,6 +2,10 @@ import React from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import PencilIcon from "../assets/icons/PencilIcon.png";
+import UserProfile from "../assets/icons/UserProfile.png";
+import StarIcon from "../assets/icons/StarIcon.png";
+
 const PageContainer = styled.div`
   padding: 50px;
   display: flex;
@@ -67,14 +71,14 @@ const TextInput = styled.p`
 `;
 
 const TextPofile = styled.p`
-  margin: 30px 0px 30px 0px;
+  margin: 0px 10px 0px 0px;
   font-size: 18px;
   font-family: 'SCDream6';
   color: #313866;
 `;
 
 const TextStudy = styled.p`
-  margin: 0px 0px 15px 0px;
+  margin: 0px 0px 0px 10px;
   font-size: 18px;
   font-family: 'SCDream4';
   color: #B3B4DC;
@@ -120,7 +124,12 @@ const Text = styled.div`
   display: flex;
 `;
 
-
+const RowWrapper = styled.div`
+  flex-direction: row;
+  display: flex;
+  margin: 10px 0px 30px 0px;
+  align-items: center;
+`;
 
 const Signup = () => {
 
@@ -134,7 +143,11 @@ const Signup = () => {
         <TextLink to="/login">로그인</TextLink>
       </Text>
       <Box>
-        <TextPofile>프로필 수정</TextPofile>
+        <img src={UserProfile} alt={'default User Profile'} style={{ width: 'auto', height: '100px'}} />
+        <RowWrapper>
+          <TextPofile>프로필 수정</TextPofile>
+          <img src={PencilIcon} alt={'Pencil Icon'} style={{ width: 'auto', height: '17px'}} />
+        </RowWrapper>
         <InputWrapper>
           <TextInput>아이디</TextInput>
           <Input type="text" />
@@ -144,10 +157,10 @@ const Signup = () => {
           <Input type="password" />
         </InputWrapper>
         <HorizontalLine />
-        <InputWrapper>
+        <RowWrapper>
+          <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '17px'}} />
           <TextStudy>스터디 연락을 위한 정보입니다.</TextStudy>
-          <Tempbox type="password" />
-        </InputWrapper>
+        </RowWrapper>
         <InputWrapper>
           <TextInput>이름</TextInput>
           <Input type="text" />

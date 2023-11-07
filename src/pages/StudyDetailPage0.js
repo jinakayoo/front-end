@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 
+import StarIcon from "../assets/icons/StarIcon.png";
+
 const PageContainer = styled.div`
   display: flex;
   padding: 50px 200px 50px 200px;
@@ -20,7 +22,7 @@ const Box = styled.div`
 `;
 
 const TitleText = styled.p`
-  margin: 0px 0px 20px 0px;
+  margin: 0px 0px 0px 10px;
   font-size: 50px;
   font-family: 'GmarketSans';
   color: #313866;
@@ -98,12 +100,22 @@ const CommentArea = styled.div`
   margin: 50px 0px 0px 0px;
 `;
 
+const RowWrapper = styled.div`
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  margin: 0px 0px 20px 0px;
+`;
+
 const StudyDetailPage0 = () => {
 
   return (
     <PageContainer>
       <Box>
-        <TitleText>[프로젝트] 덕성여대 지나가유</TitleText>
+        <RowWrapper>
+          <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '50px'}} />
+          <TitleText>[프로젝트] 덕성여대 지나가유</TitleText>
+        </RowWrapper>
         <AuthText>닉네임 | 2023.11.05.</AuthText>
         <SubWrapper>
           <SubtitleText>기술 스택</SubtitleText>
