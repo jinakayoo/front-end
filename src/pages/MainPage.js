@@ -4,6 +4,7 @@ import styled from "styled-components";
 import InformCard from "../components/InformCard";
 import OverCard from "../components/OverCard";
 import { mapdata } from "../assets/data/mapdata";
+import { Link } from 'react-router-dom';
 
 const { kakao } = window;
 
@@ -69,7 +70,8 @@ const StudyList = () => {
 
   return (
     <ListContainer>
-        {studiesToDisplay.map((value) => (
+      {studiesToDisplay.map((value, index) => (
+        <Link to={`/detail/${index}`} style={{ textDecoration: 'none' }}>
           <InformCard
             key={`Study-${value.title}`}
             position={value.latlng}
@@ -79,7 +81,8 @@ const StudyList = () => {
             during={value.during}
             people={value.people}
           />
-        ))}
+        </Link>
+      ))}
       <PaginationContainer>
         {mapdata.length > studiesPerPage && (
           <PaginationButton

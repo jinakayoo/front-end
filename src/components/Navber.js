@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import StarHubIconNavbar from "../assets/icons/StarHubIconNavbar.png";
 
 const NavContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  padding: 0px 20px;
   background-color: #7C8BBE;
   font-family: 'SCDream4';
 `;
@@ -14,11 +15,6 @@ const NavContainer = styled.nav`
 const TextLink = styled(Link)`
   text-decoration: none;
 `
-
-const Logo = styled.img`
-  width: 50px;
-  height: auto;
-`;
 
 const Profile = styled.img`
   width: 50px;
@@ -45,8 +41,7 @@ const Navber = () => {
     <NavContainer>
       <NavItems>
         <TextLink to="/">
-          {/* <Logo src="" alt="로고" /> */}
-          <NavItem>홈</NavItem>
+          <img src={StarHubIconNavbar} alt={'Logo'} style={{ width: 'auto', height: '50px', marginRight: '10px', marginTop: '5px'}} />
         </TextLink>
         <TextLink to="/studyrecruit">
           <NavItem>모집하기</NavItem>

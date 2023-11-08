@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
 
+import StarIcon from "../assets/icons/StarIcon.png";
+
 const PageContainer = styled.div`
-  padding: 50px;
+  padding: 50px 100px 50px 100px;
   display: flex;
   background-color: #F6F1FB;
   flex-direction: column;
@@ -11,8 +13,6 @@ const PageContainer = styled.div`
 const Info = styled.div`
   padding: 20px 0px 50px 0px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
 `;
 
@@ -23,14 +23,14 @@ const Intro = styled.div`
 `;
 
 const HorizontalLine = styled.div`
-  width: 50%;
+  width: 100%;
   height: 2px;
   background-color: #7C8BBE;
   margin: 0px;
 `;
 
   const TitleText = styled.p`
-  margin: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 10px;
   font-size: 24px;
   font-family: 'GmarketSans';
   color: #7C8BBE;
@@ -45,6 +45,7 @@ const Inputbox = styled.div`
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 `;
 
 const Input = styled.input`
@@ -53,7 +54,7 @@ const Input = styled.input`
   padding: 15px;
   border: 2px solid #B3B4DC;
   border-radius: 10px;
-  width: 30vw;
+  width: 35vw;
   font-size: 18px;
 `;
 
@@ -70,14 +71,18 @@ const Textarea = styled.textarea`
   padding: 15px;
   border: 2px solid #B3B4DC;
   border-radius: 10px;
-  width: 30vw;
+  width: 100%;
+  height: 450px;
   font-size: 18px;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const Button = styled.button`
-  padding: 10px 20px;
-  margin-top: 40px;
-  width: 250px;
+  width: 100px;
   height: 50px;
   border: none;
   border-radius: 10px;
@@ -89,53 +94,67 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const RowWrapper = styled.div`
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+`;
+
 const StudyRecruitPage = () => {
 
   return (
     <PageContainer>
-      <TitleText>프로젝트 기본 정보</TitleText>
+      <RowWrapper>
+        <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '20px'}} />
+        <TitleText>프로젝트 기본 정보</TitleText>
+      </RowWrapper>
       <HorizontalLine />
       <Info>
         <Inputbox>
           <InputWrapper>
             <TextInput>모집 구분</TextInput>
-            <Input type="text" />
+            <Input type="text" placeholder="스터디와 프로젝트 중 선택해주세요."/>
           </InputWrapper>
           <InputWrapper>
             <TextInput>기술 스택</TextInput>
-            <Input type="text" />
+            <Input type="text" placeholder="사용되는 기술 스택을 입력해주세요. ex) 리액트, 스프링..."/>
           </InputWrapper>
         </Inputbox>
         <Inputbox>
           <InputWrapper>
             <TextInput>모집 인원</TextInput>
-            <Input type="text" />
+            <Input type="text"placeholder="모집 인원 수를 입력해주세요. ex) 3~5"/>
           </InputWrapper>
           <InputWrapper>
             <TextInput>진행 기간</TextInput>
-            <Input type="text" />
+            <Input type="text"placeholder="진행 기간을 입력해주세요."/>
           </InputWrapper>
         </Inputbox>
         <Inputbox>
           <InputWrapper>
             <TextInput>진행 장소</TextInput>
-            <Input type="text" />
+            <Input type="text"placeholder="주소를 입력해주세요."/>
           </InputWrapper>
           <InputWrapper>
             <TextInput>모집 마감일</TextInput>
-            <Input type="text" />
+            <Input type="text"placeholder="**** - ** - **"/>
           </InputWrapper>
         </Inputbox>
       </Info>
-      <TitleText>프로젝트 소개</TitleText>
+      <RowWrapper>
+        <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '20px'}} />
+        <TitleText>프로젝트 소개</TitleText>
+      </RowWrapper>
       <HorizontalLine />
       <Intro>
         <TextInput>제목</TextInput>
-        <Input type="text" />
+        <Input type="text"placeholder="제목을 입력해주세요."/>
         <TextInput>내용</TextInput>
-        <Textarea type="text" />
+        <Textarea type="text" placeholder="내용을 입력해주세요."/>
       </Intro>
-      <Button>글 등록</Button>
+      <ButtonContainer>
+        <Button>글 등록</Button>
+      </ButtonContainer>
     </PageContainer>
   );
 };
