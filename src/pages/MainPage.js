@@ -2,44 +2,68 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import InformCard from "../components/InformCard";
+import OverCard from "../components/OverCard";
 import { mapdata } from "../assets/data/mapdata";
 import { Link } from 'react-router-dom';
 
 const { kakao } = window;
 
 const PageContainer = styled.div`
-  height: 700px;
+  height: 710px;
   display: flex;
   flex-direction: row;
 `;
 
 const ListContainer = styled.div`
+  /* height: 710px;  */
   width: 27%;
   padding: 10px 20px;
-  background-color: #F6F1FB;
+  background-color: #f6f1fb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 73%;
+  margin-top: 5px;
+  margin-bottom: 15px;
+`;
+
+const PaginationNumberButton = styled.button`
+  margin: 5px;
+  font-size: 16px;
+  font-family: "SCDream4";
+  color: #7c8bbe;
+  background-color: transparent;
+  border: none;
+  font-weight: ${(props) => (props.active ? "bold" : "normal")};
 `;
 
 const PaginationButton = styled.button`
-  margin: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 4px 15px;
+  font-size: 16px;
+  font-family: "SCDream4";
+  align-items: center;
+  border-radius: 10px;
+  color: #f6f1fb;
+  background-color: #7c8bbe;
+  border: none;
 `;
 
 const StudyList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const studiesPerPage = 4; // 페이지당 표시할 스터디 수
+  const studiesPerPage = 4;
 
-  // 페이지 변경을 처리하는 함수
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
-  // 현재 페이지에 따라 표시할 스터디 목록 계산
   const startIndex = (currentPage - 1) * studiesPerPage;
   const endIndex = startIndex + studiesPerPage;
   const studiesToDisplay = mapdata.slice(startIndex, endIndex);
@@ -65,15 +89,27 @@ const StudyList = () => {
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            Previous
+            이전
           </PaginationButton>
         )}
+        {mapdata.length > studiesPerPage &&
+          Array.from({
+            length: Math.ceil(mapdata.length / studiesPerPage),
+          }).map((value, index) => (
+            <PaginationNumberButton
+              key={index}
+              active={currentPage === index + 1}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </PaginationNumberButton>
+          ))}
         {mapdata.length > studiesPerPage && (
           <PaginationButton
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={endIndex >= mapdata.length}
           >
-            Next
+            다음
           </PaginationButton>
         )}
       </PaginationContainer>
@@ -81,29 +117,54 @@ const StudyList = () => {
   );
 };
 
-const EventMarkerContainer = ({ position, title, stack, finish, during, people }) => {
+const EventMarkerContainer = ({
+  position,
+  title,
+  stack,
+  finish,
+  during,
+  people,
+}) => {
   const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
-  // useMemo를 사용하여 InformCard 컴포넌트를 생성
-  const informCard = useMemo(() => (
-    <InformCard
-      title={title}
-      stack={stack}
-      finish={finish}
-      during={during}
-      people={people}
-    />
-  ), [title, stack, finish, during, people]);
+  const handleMarkerClick = () => {
+    setIsClicked(!isClicked);
+  };
+
+  const handleMarkerMouseOver = () => {
+    if (!isClicked) {
+      setIsVisible(true);
+    }
+  };
+
+  const handleMarkerMouseOut = () => {
+    if (!isClicked) {
+      setIsVisible(false);
+    }
+  };
 
   return (
     <MapMarker
       position={position}
-      onClick={(marker) => map.panTo(marker.getPosition())}
-      onMouseOver={() => setIsVisible(true)}
-      onMouseOut={() => setIsVisible(false)}
+      onClick={handleMarkerClick}
+      onMouseOver={handleMarkerMouseOver}
+      onMouseOut={handleMarkerMouseOut}
     >
-      {isVisible && informCard}
+      {isVisible && (
+        <OverCard
+          title={title}
+          stack={stack}
+          finish={finish}
+          during={during}
+          people={people}
+          onClose={() => {
+            setIsClicked(false);
+            setIsVisible(false);
+          }}
+        />
+      )}
     </MapMarker>
   );
 };
@@ -153,3 +214,4 @@ const MainPage = () => {
 };
 
 export default MainPage;
+

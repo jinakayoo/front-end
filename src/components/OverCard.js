@@ -5,7 +5,6 @@ import FinishIcon from "../assets/icons/FinishIcon.png";
 import PlaceIcon from "../assets/icons/PlaceIcon.png";
 import PeopleIcon from "../assets/icons/PeopleIcon.png";
 import DuringIcon from "../assets/icons/DuringIcon.png";
-import { useNavigate } from "react-router-dom";
 
 const PageContainer = styled.div`
   width: 335px;
@@ -15,10 +14,8 @@ const PageContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto auto auto;
   padding: 10px 20px;
-  padding-bottom: 20px;
-  /* margin: 13px 0px; */
+  margin: 13px 0px;
   background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
 `;
 
@@ -28,7 +25,8 @@ const TitleContainer = styled.div`
   font-size: 24px;
   font-family: "GmarketSans";
   width: 100%;
-  margin-bottom: 7px;
+  margin-top: -7px;
+  margin-bottom: 10px;
 `;
 
 const ShortContainer = styled.div`
@@ -36,13 +34,12 @@ const ShortContainer = styled.div`
   flex-direction: row;
   font-size: 16px;
   align-items: center;
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 `;
 
 const ShortTitleContainer = styled.div`
   text-decoration: none;
   text-align: center;
-  align-items: center;
   color: #7C8BBE;
   font-size: 16px;
   font-family: "SCDream4";
@@ -55,6 +52,16 @@ const ShortDetailContainer = styled.div`
   color: #313866;
   font-size: 16px;
   font-family: "SCDream4";
+`;
+
+const ClosedButton = styled.button`
+  color: #7C8BBE;
+  font-size: 16px;
+  font-family: "GmarketSans";
+  background-color: #ffffff;
+  border: none;
+  outline: none;
+  cursor: pointer;
 `;
 
 const StackIconCSS = {
@@ -104,17 +111,24 @@ function shotInform(image, title, content, unit) {
   );
 }
 
-function InformCard({ title, stack, finish, during, people }) {
 
-  const navigate = useNavigate();
+function OverCard({ title, stack, finish, during, people, onClose }) {
+  console.log(title, stack, finish, during, people);
 
-  function moveDetail() {
-    navigate('/studydetail')
-  }
+  const handleClose = () => {
+    if (onClose) {
+      onClose(); // onClose 함수 호출
+    }
+  };
 
   return (
-    <PageContainer onClick={moveDetail}>
-      <TitleContainer>{title}</TitleContainer>
+    <PageContainer>
+      <TitleContainer>
+        {title}
+        <ClosedButton onClick={handleClose} style={{ float: 'right', cursor: 'pointer' }}>
+          X
+        </ClosedButton>
+      </TitleContainer>
       {shotInform(StackIcon, "스택", stack, "")}
       {shotInform(FinishIcon, "마감", finish, "")}
       {shotInform(PlaceIcon, "공간", during, "개월")}
@@ -124,4 +138,4 @@ function InformCard({ title, stack, finish, during, people }) {
   );
 }
 
-export default InformCard;
+export default OverCard;
