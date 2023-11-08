@@ -124,6 +124,7 @@ const EventMarkerContainer = ({
   finish,
   during,
   people,
+  index,
 }) => {
   const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
@@ -153,6 +154,7 @@ const EventMarkerContainer = ({
       onMouseOut={handleMarkerMouseOut}
     >
       {isVisible && (
+        <Link to={`/detail/${index}`} style={{ textDecoration: 'none' }}>
         <OverCard
           title={title}
           stack={stack}
@@ -164,7 +166,9 @@ const EventMarkerContainer = ({
             setIsVisible(false);
           }}
         />
+        </Link>
       )}
+      
     </MapMarker>
   );
 };
@@ -196,9 +200,10 @@ const MainPage = () => {
           style={{ width: "73%", height: "100%" }}
           level={3}
         >
-          {mapdata.map((value) => (
+          {mapdata.map((value, index) => (
             <EventMarkerContainer
               key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
+              index={index}
               position={value.latlng}
               title={value.title}
               stack={value.stack}
