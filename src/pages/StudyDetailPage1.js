@@ -2,6 +2,8 @@ import React from 'react';
 import styled from "styled-components";
 
 import StarIcon from "../assets/icons/StarIcon.png";
+import {Commentdata} from '../assets/data/Commentdata';
+import CommentList from '../components/CommentList';
 
 const PageContainer = styled.div`
   display: flex;
@@ -172,6 +174,7 @@ const StudyDetailPage1 = () => {
       <CommentButtonContainer>
         <CommentButton>등록</CommentButton>
       </CommentButtonContainer>
+      <CommentList comments={Commentdata} />
       </CommentArea>
     </PageContainer>
   );

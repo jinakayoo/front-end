@@ -2,6 +2,8 @@ import React from 'react';
 import styled from "styled-components";
 
 import StarIcon from "../assets/icons/StarIcon.png";
+import {Commentdata} from '../assets/data/Commentdata';
+import CommentList from '../components/CommentList';
 
 const PageContainer = styled.div`
   display: flex;
@@ -96,6 +98,7 @@ const HorizontalLine = styled.div`
 const CommentArea = styled.div`
   display: flex;
   margin: 50px 0px 0px 0px;
+  flex-direction: column;
 `;
 
 const RowWrapper = styled.div`
@@ -155,6 +158,7 @@ const StudyDetailPage0 = () => {
       </Box>
       <CommentArea>
         <SubtitleText>댓글</SubtitleText>
+        <CommentList comments={Commentdata} isSelectable/>
       </CommentArea>
       <ButtonContainer>
         <Button>스터디원 확정</Button>
