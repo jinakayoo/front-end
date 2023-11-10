@@ -69,15 +69,13 @@ const TextContent2 = styled.p`
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
   margin-top: 40px;
   width: 150px;
   height: 40px;
   border: none;
   border-radius: 10px;
   background-color: #B3B4DC;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'SCDream6';
+  font-family: 'SCDream4';
   color: white;
   font-size: 16px;
   cursor: pointer;
