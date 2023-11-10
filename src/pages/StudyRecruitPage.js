@@ -56,6 +56,8 @@ const Input = styled.input`
   border-radius: 10px;
   width: 35vw;
   font-size: 18px;
+  font-family: 'SCDream4', sans-serif;
+  resize: none;
 `;
 
 const TextInput = styled.p`
@@ -74,6 +76,8 @@ const Textarea = styled.textarea`
   width: 100%;
   height: 450px;
   font-size: 18px;
+  font-family: 'SCDream4', sans-serif;
+  resize: none;
 `;
 
 const ButtonContainer = styled.div`
