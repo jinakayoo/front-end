@@ -57,7 +57,6 @@ const Input = styled.input`
   width: 35vw;
   font-size: 18px;
   font-family: 'SCDream4', sans-serif;
-  resize: none;
 `;
 
 const TextInput = styled.p`
