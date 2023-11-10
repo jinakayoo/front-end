@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import ApplicantListPage from "./pages/ApplicantListPage";
 import StudyDetailPage0 from "./pages/StudyDetailPage0";
 import StudyDetailPage1 from "./pages/StudyDetailPage1";
+import StudyDetailPage2 from "./pages/StudyDetailPage2";
 import StudyRecruitPage from "./pages/StudyRecruitPage";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/applicantlist" element={<ApplicantListPage />} />
       <Route path="/detail/0" element={<StudyDetailPage0 />} />
       <Route path="/detail/1" element={<StudyDetailPage1 />} />
+      <Route path="/detail/2" element={<StudyDetailPage2 />} />
       <Route path="/studyrecruit" element={<StudyRecruitPage />} />
     </Routes>
   );

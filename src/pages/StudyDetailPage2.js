@@ -6,7 +6,7 @@ import StarIcon from "../assets/icons/StarIcon.png";
 const PageContainer = styled.div`
   display: flex;
   padding: 50px 200px 50px 200px;
-  background-color: #fff;
+  background-color: #F6F1FB;
   flex-direction: column;
 `;
 
@@ -17,7 +17,7 @@ const Box = styled.div`
   height: 100%;
   border-radius: 20px;
   background-color: #fff;
-  // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   flex-direction: column;
 `;
 
@@ -68,11 +68,36 @@ const TextContent2 = styled.p`
   color: #313866;
 `;
 
+const Button = styled.button`
+  padding: 10px 20px;
+  margin-top: 40px;
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: #B3B4DC;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'SCDream6';
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const HorizontalLine = styled.div`
   width: 100%;
   height: 2px;
   background-color: #7C8BBE;
   margin: 30px 0px 40px 0px;
+`;
+
+const CommentArea = styled.div`
+  display: flex;
+  margin: 50px 0px 0px 0px;
 `;
 
 const RowWrapper = styled.div`
@@ -82,47 +107,12 @@ const RowWrapper = styled.div`
   margin: 0px 0px 20px 0px;
 `;
 
-const CommentArea = styled.div`
-  padding: 0px 20px;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`;
-
-const Textarea = styled.textarea`
-  flex: 1;
-  padding: 15px;
-  border: 2px solid #B3B4DC;
-  border-radius: 30px;
-  font-size: 18px;
-  font-family: 'SCDream4', sans-serif;
-  resize: none;
-`;
-
-const CommentButton = styled.button`
-  margin-top: 10px;
-  width: 95px;
-  height: 35px;
-  border: none;
-  border-radius: 30px;
-  background-color: #B3B4DC;
-  font-family: 'SCDream4';
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-`;
-
-const CommentButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const StudyDetailPage1 = () => {
+const StudyDetailPage2 = () => {
 
   return (
     <PageContainer>
       <Box>
-      <RowWrapper>
+        <RowWrapper>
           <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '50px'}} />
           <TitleText>[프로젝트] 덕성여대 지나가유</TitleText>
         </RowWrapper>
@@ -164,17 +154,12 @@ const StudyDetailPage1 = () => {
           디자인 1명<br/>
           개발자 1명<br/>
         </TextContent2>
-        <HorizontalLine/>
       </Box>
-      <SubtitleText>댓글</SubtitleText>
-      <CommentArea>
-        <Textarea type="text" placeholder="댓글을 입력하세요."/>
-      <CommentButtonContainer>
-        <CommentButton>등록</CommentButton>
-      </CommentButtonContainer>
-      </CommentArea>
+      <ButtonContainer>
+        <Button>스터디원 보기</Button>
+      </ButtonContainer>
     </PageContainer>
   );
 };
 
-export default StudyDetailPage1;
+export default StudyDetailPage2;
