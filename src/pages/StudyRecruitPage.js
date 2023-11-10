@@ -52,7 +52,7 @@ const Input = styled.input`
   margin-top: 5px;
   margin-bottom: 15px;
   padding: 15px;
-  border: 2px solid #B3B4DC;
+  border: 3px solid #B3B4DC;
   border-radius: 10px;
   width: 35vw;
   font-size: 18px;
@@ -70,7 +70,7 @@ const TextInput = styled.p`
 const Textarea = styled.textarea`
   margin-bottom: 15px;
   padding: 15px;
-  border: 2px solid #B3B4DC;
+  border: 3px solid #B3B4DC;
   border-radius: 10px;
   width: 100%;
   height: 450px;

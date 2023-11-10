@@ -43,19 +43,22 @@ const InputWrapper = styled.div`
 const Input = styled.input`
   margin-bottom: 15px;
   padding: 15px;
-  border: 2px solid #B3B4DC;
+  border: 3px solid #B3B4DC;
   border-radius: 10px;
   width: 30vw;
   font-size: 18px;
+  font-family: 'SCDream4';
 `;
 
 const Textarea = styled.textarea`
   margin-bottom: 15px;
   padding: 15px;
-  border: 2px solid #B3B4DC;
+  border: 3px solid #B3B4DC;
   border-radius: 10px;
   width: 30vw;
   font-size: 18px;
+  font-family: 'SCDream4';
+  resize: none;
 `;
 
 const Tempbox = styled.div`

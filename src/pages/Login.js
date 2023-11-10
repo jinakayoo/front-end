@@ -37,10 +37,11 @@ const InputWrapper = styled.div`
 const Input = styled.input`
   margin-bottom: 15px;
   padding: 15px;
-  border: 2px solid #B3B4DC;
+  border: 3px solid #B3B4DC;
   border-radius: 10px;
   width: 300px;
   font-size: 18px;
+  font-family: 'SCDream4';
 `;
 
 const Button = styled.button`

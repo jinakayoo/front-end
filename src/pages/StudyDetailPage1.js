@@ -94,8 +94,8 @@ const CommentArea = styled.div`
 const Textarea = styled.textarea`
   flex: 1;
   padding: 15px;
-  border: 2px solid #B3B4DC;
-  border-radius: 30px;
+  border: 3px solid #7C8BBE;
+  border-radius: 25px;
   font-size: 18px;
   font-family: 'SCDream4', sans-serif;
   resize: none;

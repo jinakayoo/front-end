@@ -8,7 +8,7 @@ const CommentListContainer = styled.div`
 const CommentItem = styled.div`
   padding: 15px 25px;
   margin: 40px 0;
-  border: 2px solid #B3B4DC;
+  border: 3px solid #7C8BBE;
   border-radius: 30px;
   font-family: 'SCDream4', sans-serif;
   font-size: 18px;
