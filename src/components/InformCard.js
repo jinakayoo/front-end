@@ -108,12 +108,13 @@ function InformCard({ title, stack, finish, during, people }) {
 
   const navigate = useNavigate();
 
-  function moveDetail() {
-    navigate('/studydetail')
-  }
+  // function moveDetail() {
+  //   navigate('/studydetail')
+  // }
 
   return (
-    <PageContainer onClick={moveDetail}>
+    // onClick={moveDetail}
+    <PageContainer>
       <TitleContainer>{title}</TitleContainer>
       {shotInform(StackIcon, "스택", stack, "")}
       {shotInform(FinishIcon, "마감", finish, "")}
