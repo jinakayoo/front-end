@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import InformCard from "../components/InformCard";
 import OverCard from "../components/OverCard";
 import { mapdata } from "../assets/data/mapdata";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const { kakao } = window;
 
@@ -15,7 +15,6 @@ const PageContainer = styled.div`
 `;
 
 const ListContainer = styled.div`
-  /* height: 710px;  */
   width: 27%;
   padding: 10px 20px;
   background-color: #f6f1fb;
@@ -71,7 +70,7 @@ const StudyList = () => {
   return (
     <ListContainer>
       {studiesToDisplay.map((value, index) => (
-        <Link to={`/detail/${index}`} style={{ textDecoration: 'none' }}>
+        <Link to={`/detail/${index}`} style={{ textDecoration: "none" }}>
           <InformCard
             key={`Study-${value.title}`}
             position={value.latlng}
@@ -154,21 +153,19 @@ const EventMarkerContainer = ({
       onMouseOut={handleMarkerMouseOut}
     >
       {isVisible && (
-        <Link to={`/detail/${index}`} style={{ textDecoration: 'none' }}>
         <OverCard
           title={title}
           stack={stack}
           finish={finish}
           during={during}
           people={people}
+          index={index}
           onClose={() => {
             setIsClicked(false);
             setIsVisible(false);
           }}
         />
-        </Link>
       )}
-      
     </MapMarker>
   );
 };
@@ -219,4 +216,3 @@ const MainPage = () => {
 };
 
 export default MainPage;
-
