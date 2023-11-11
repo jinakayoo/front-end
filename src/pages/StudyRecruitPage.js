@@ -159,14 +159,8 @@ function FindAddress({ setAddressObj }) {
     }
   };
 
-  const handleClick = () => {
-    new window.daum.Postcode({
-      oncomplete: handleComplete,
-    }).open();
-  };
-
   return (
-    <FindAddressButton type="button" onClick={handleClick}>
+    <FindAddressButton type="button" onClick={() => new window.daum.Postcode({ oncomplete: handleComplete }).open()}>
       주소 찾기
     </FindAddressButton>
   );
