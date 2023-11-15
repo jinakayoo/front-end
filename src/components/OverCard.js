@@ -94,7 +94,7 @@ const PlaceIconCSS = {
   margin: "3px 6px",
 };
 
-const PeopleIconCSS = {
+const peopleNumIconCSS = {
   width: "16px",
   height: "14px",
   margin: "4px 3px",
@@ -120,7 +120,7 @@ function shotInform(image, title, content, unit) {
             : title === "공간"
             ? PlaceIconCSS
             : title === "인원"
-            ? PeopleIconCSS
+            ? peopleNumIconCSS
             : title === "장소"
             ? DuringIconCSS
             : null
@@ -135,8 +135,8 @@ function shotInform(image, title, content, unit) {
   );
 }
 
-function OverCard({ title, stack, finish, during, people, onClose, index }) {
-  console.log(title, stack, finish, during, people);
+function OverCard({ title, skill, deadline, progress, peopleNum, onClose, index }) {
+  console.log(title, skill, deadline, progress, peopleNum);
 
   const handleClose = () => {
     if (onClose) {
@@ -149,11 +149,11 @@ function OverCard({ title, stack, finish, during, people, onClose, index }) {
       <Link to={`/detail/${index}`} style={{ textDecoration: "none" }}>
           <TitleContainer>{title}</TitleContainer>
         <PageContainer>
-          {shotInform(StackIcon, "스택", stack, "")}
-          {shotInform(FinishIcon, "마감", finish, "")}
-          {shotInform(PlaceIcon, "공간", during, "개월")}
-          {shotInform(PeopleIcon, "인원", people, "명")}
-          {shotInform(DuringIcon, "장소", during, "")}
+          {shotInform(StackIcon, "스택", skill, "")}
+          {shotInform(FinishIcon, "마감", deadline, "")}
+          {shotInform(PlaceIcon, "공간", progress, "개월")}
+          {shotInform(PeopleIcon, "인원", peopleNum, "명")}
+          {shotInform(DuringIcon, "장소", progress, "")}
         </PageContainer>
       </Link>
       <ClosedButton
