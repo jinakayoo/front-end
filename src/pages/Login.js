@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const PageContainer = styled.div`
   display: flex;
@@ -85,22 +87,57 @@ const Text = styled.div`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [loginId, setLoginId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/user/login', {
+        loginId,
+        password,
+      });
+
+      // 서버에서 받은 로그인 정보를 localStorage에 저장
+      localStorage.setItem('userInfo', JSON.stringify(response.data.data));
+    
+      navigate('/');
+    } catch (error) {
+      console.error('Login failed:', error.message);
+    }
+  };
+
+  // localStorage에서 정보 삭제하기
+  // localStorage.removeItem('userInfo');
+
+  // localStorage에서 정보 가져오기 및 확인하기
+  // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  // console.log(userInfo)
+
 
   return (
     <PageContainer>
-      <TitleText>
-        Sign In
-      </TitleText>
+      <TitleText>Sign In</TitleText>
       <Box>
         <InputWrapper>
-          <Input type="text" placeholder="아이디" />
+          <Input
+            type="text"
+            placeholder="아이디"
+            value={loginId}
+            onChange={(e) => setLoginId(e.target.value)}
+          />
         </InputWrapper>
         <InputWrapper>
-          <Input type="password" placeholder="비밀번호" />
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </InputWrapper>
       </Box>
-      <Button>Login</Button>
-      <HorizontalLine/>
+      <Button onClick={handleLogin}>Login</Button>
+      <HorizontalLine />
       <Text>
         <TextContent>아직 회원이 아니신가요?</TextContent>
         <TextLink to="/signup">회원가입</TextLink>
