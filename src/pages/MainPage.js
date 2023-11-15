@@ -67,6 +67,9 @@ const StudyList = () => {
   const endIndex = startIndex + studiesPerPage;
   const studiesToDisplay = mapdata.slice(startIndex, endIndex);
 
+  // localStorage에서 정보 가져오기 및 확인하기
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
   return (
     <ListContainer>
       {studiesToDisplay.map((value, index) => (
