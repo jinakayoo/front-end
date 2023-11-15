@@ -16,7 +16,6 @@ const PageContainer = styled.div`
   grid-template-rows: auto auto auto;
   padding: 10px 20px;
   padding-bottom: 20px;
-  /* margin: 13px 0px; */
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
@@ -87,7 +86,6 @@ const DuringIconCSS = {
   margin: "4px",
 };
 
-
 function shotInform(image, title, content, unit) {
   return (
     <ShortContainer>
@@ -104,23 +102,21 @@ function shotInform(image, title, content, unit) {
   );
 }
 
-function InformCard({ title, stack, finish, during, people }) {
-
+function InformCard({ title, skill, deadline, progress, peopleNum, place }) {
   const navigate = useNavigate();
 
-  // function moveDetail() {
-  //   navigate('/studydetail')
-  // }
+  function moveDetail() {
+    navigate('/studydetail');
+  }
 
   return (
-    // onClick={moveDetail}
-    <PageContainer>
+    <PageContainer onClick={moveDetail}>
       <TitleContainer>{title}</TitleContainer>
-      {shotInform(StackIcon, "스택", stack, "")}
-      {shotInform(FinishIcon, "마감", finish, "")}
-      {shotInform(PlaceIcon, "공간", during, "개월")}
-      {shotInform(PeopleIcon, "인원", people, "명")}
-      {shotInform(DuringIcon, "장소", during, "")}
+      {shotInform(StackIcon, "스택", skill, "")}
+      {shotInform(FinishIcon, "마감", deadline, "")}
+      {shotInform(PlaceIcon, "공간", place, "")}
+      {shotInform(PeopleIcon, "인원", peopleNum, "명")}
+      {shotInform(DuringIcon, "장소", progress, "")}
     </PageContainer>
   );
 }

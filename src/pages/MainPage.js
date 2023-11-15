@@ -63,22 +63,24 @@ const StudyList = () => {
     setCurrentPage(newPage);
   };
 
-  const startIndex = (currentPage - 1) * studiesPerPage;
-  const endIndex = startIndex + studiesPerPage;
-  const studiesToDisplay = mapdata.slice(startIndex, endIndex);
+  const startplace = (currentPage - 1) * studiesPerPage;
+  const endplace = startplace + studiesPerPage;
+  const studiesToDisplay = mapdata.slice(startplace, endplace);
 
   return (
     <ListContainer>
-      {studiesToDisplay.map((value, index) => (
-        <Link to={`/detail/${index}`} style={{ textDecoration: "none" }}>
+      {studiesToDisplay.map((value, place) => (
+        <Link to={`/detail/${place}`} style={{ textDecoration: "none" }}>
           <InformCard
             key={`Study-${value.title}`}
-            position={value.latlng}
             title={value.title}
-            stack={value.stack}
-            finish={value.finish}
-            during={value.during}
-            people={value.people}
+            skill={value.skill}
+            deadline={value.deadline}
+            progress={value.progress}
+            peopleNum={value.peopleNum}
+            place={value.place}
+            latitude={value.latitude}
+            longitude={value.longitude}
           />
         </Link>
       ))}
@@ -94,19 +96,19 @@ const StudyList = () => {
         {mapdata.length > studiesPerPage &&
           Array.from({
             length: Math.ceil(mapdata.length / studiesPerPage),
-          }).map((value, index) => (
+          }).map((value, place) => (
             <PaginationNumberButton
-              key={index}
-              active={currentPage === index + 1}
-              onClick={() => handlePageChange(index + 1)}
+              key={place}
+              active={currentPage === place + 1}
+              onClick={() => handlePageChange(place + 1)}
             >
-              {index + 1}
+              {place + 1}
             </PaginationNumberButton>
           ))}
         {mapdata.length > studiesPerPage && (
           <PaginationButton
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={endIndex >= mapdata.length}
+            disabled={endplace >= mapdata.length}
           >
             다음
           </PaginationButton>
@@ -119,11 +121,11 @@ const StudyList = () => {
 const EventMarkerContainer = ({
   position,
   title,
-  stack,
-  finish,
-  during,
-  people,
-  index,
+  skill,
+  deadline,
+  progress,
+  peopleNum,
+  place,
 }) => {
   const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
@@ -155,11 +157,11 @@ const EventMarkerContainer = ({
       {isVisible && (
         <OverCard
           title={title}
-          stack={stack}
-          finish={finish}
-          during={during}
-          people={people}
-          index={index}
+          skill={skill}
+          deadline={deadline}
+          progress={progress}
+          peopleNum={peopleNum}
+          place={place}
           onClose={() => {
             setIsClicked(false);
             setIsVisible(false);
@@ -197,16 +199,18 @@ const MainPage = () => {
           style={{ width: "73%", height: "100%" }}
           level={3}
         >
-          {mapdata.map((value, index) => (
+          {mapdata.map((value, place) => (
             <EventMarkerContainer
-              key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
-              index={index}
-              position={value.latlng}
+              key={`EventMarkerContainer-${value.latitude}-${value.longitude}`}
+              position={{ lat: value.latitude, lng: value.longitude }}
+              place={place}
+              latitude={value.latitude}
+              longitude={value.longitude}
               title={value.title}
-              stack={value.stack}
-              finish={value.finish}
-              during={value.during}
-              people={value.people}
+              skill={value.skill}
+              deadline={value.deadline}
+              progress={value.progress}
+              peopleNum={value.peopleNum}
             />
           ))}
         </Map>
