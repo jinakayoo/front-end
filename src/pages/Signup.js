@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-import PencilIcon from "../assets/icons/PencilIcon.png";
-import UserProfile from "../assets/icons/UserProfile.png";
 import StarIcon from "../assets/icons/StarIcon.png";
 
 const PageContainer = styled.div`
@@ -61,23 +61,11 @@ const Textarea = styled.textarea`
   resize: none;
 `;
 
-const Tempbox = styled.div`
-  padding: 0px 15px 0px 15px;
-  width: 30vw;
-`;
-
 const TextInput = styled.p`
   margin: 0px;
   font-size: 18px;
   font-family: 'SCDream4';
   color: #B3B4DC;
-`;
-
-const TextPofile = styled.p`
-  margin: 0px 10px 0px 0px;
-  font-size: 18px;
-  font-family: 'SCDream6';
-  color: #313866;
 `;
 
 const TextStudy = styled.p`
@@ -92,7 +80,7 @@ const HorizontalLine = styled.div`
   height: 2px;
   background-color: #7C8BBE;
   margin: 10px 0px 20px 0px;
-  `;
+`;
 
 const Button = styled.button`
   padding: 10px 20px;
@@ -135,56 +123,132 @@ const RowWrapper = styled.div`
 `;
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    loginId: "",
+    password: "",
+    name: "",
+    age: "",
+    email: "",
+    phoneNum: "",
+    introduction: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const url = 'http://localhost:8080/api/user/register';
+
+    const form = new FormData();
+    form.append('info', JSON.stringify(formData));
+
+    try {
+      const response = await axios.post(url, form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status === 200) {
+        
+        // 서버에서 받은 로그인 정보를 localStorage에 저장
+        localStorage.setItem('userInfo', JSON.stringify(response.data.data));
+        navigate('/');
+      } else {
+        console.error('Signup failed');
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+    }
+  };
 
   return (
     <PageContainer>
-      <TitleText>
-        Sign Up
-      </TitleText>
+      <TitleText>Sign Up</TitleText>
       <Text>
         <TextContent>이미 StarHub 회원이신가요?</TextContent>
         <TextLink to="/login">로그인</TextLink>
       </Text>
       <Box>
-        <img src={UserProfile} alt={'default User Profile'} style={{ width: 'auto', height: '100px'}} />
-        <RowWrapper>
-          <TextPofile>프로필 수정</TextPofile>
-          <img src={PencilIcon} alt={'Pencil Icon'} style={{ width: 'auto', height: '17px'}} />
-        </RowWrapper>
-        <InputWrapper>
-          <TextInput>아이디</TextInput>
-          <Input type="text" />
-        </InputWrapper>
-        <InputWrapper>
-          <TextInput>비밀번호</TextInput>
-          <Input type="password" />
-        </InputWrapper>
-        <HorizontalLine />
-        <RowWrapper>
-          <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '17px'}} />
-          <TextStudy>스터디 연락을 위한 정보입니다.</TextStudy>
-        </RowWrapper>
-        <InputWrapper>
-          <TextInput>이름</TextInput>
-          <Input type="text" />
-        </InputWrapper>
-        <InputWrapper>
-          <TextInput>나이</TextInput>
-          <Input type="text" />
-        </InputWrapper>
-        <InputWrapper>
-          <TextInput>이메일</TextInput>
-          <Input type="text" />
-        </InputWrapper>
-        <InputWrapper>
-          <TextInput>전화번호</TextInput>
-          <Input type="text" />
-        </InputWrapper>
-        <InputWrapper>
-          <TextInput>한 줄 소개</TextInput>
-          <Textarea type="text" />
-        </InputWrapper>
-        <Button>Sign Up</Button>
+        <form onSubmit={handleSubmit}>
+          <InputWrapper>
+            <TextInput>아이디</TextInput>
+            <Input
+              type="text"
+              name="loginId"
+              value={formData.loginId}
+              onChange={handleChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <TextInput>비밀번호</TextInput>
+            <Input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </InputWrapper>
+          <HorizontalLine />
+          <RowWrapper>
+            <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '17px' }} />
+            <TextStudy>스터디 연락을 위한 정보입니다.</TextStudy>
+          </RowWrapper>
+          <InputWrapper>
+            <TextInput>이름</TextInput>
+            <Input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <TextInput>나이</TextInput>
+            <Input
+              type="text"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <TextInput>이메일</TextInput>
+            <Input
+              type="text"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <TextInput>전화번호</TextInput>
+            <Input
+              type="text"
+              name="phoneNum"
+              value={formData.phoneNum}
+              onChange={handleChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <TextInput>한 줄 소개</TextInput>
+            <Textarea
+              type="text"
+              name="introduction"
+              value={formData.introduction}
+              onChange={handleChange}
+            />
+          </InputWrapper>
+          <Button type="submit">Sign Up</Button>
+        </form>
       </Box>
     </PageContainer>
   );
