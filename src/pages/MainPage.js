@@ -1,9 +1,11 @@
+// MainPage.js
+
 import React, { useState, useEffect } from "react";
 import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import InformCard from "../components/InformCard";
 import OverCard from "../components/OverCard";
-import { mapdata } from "../assets/data/mapdata";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const { kakao } = window;
@@ -57,7 +59,20 @@ const PaginationButton = styled.button`
 
 const StudyList = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [studies, setStudies] = useState([]); // 변경
+
   const studiesPerPage = 4;
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/post/list")
+      .then((response) => {
+        setStudies(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -65,27 +80,31 @@ const StudyList = () => {
 
   const startplace = (currentPage - 1) * studiesPerPage;
   const endplace = startplace + studiesPerPage;
-  const studiesToDisplay = mapdata.slice(startplace, endplace);
+  const studiesToDisplay = studies.slice(startplace, endplace);
 
   return (
     <ListContainer>
       {studiesToDisplay.map((value, place) => (
-        <Link to={`/detail/${place}`} style={{ textDecoration: "none" }}>
+        <Link
+          to={`/detail/${place}`}
+          style={{ textDecoration: "none" }}
+          key={place}
+        >
           <InformCard
-            key={`Study-${value.title}`}
-            title={value.title}
             skill={value.skill}
-            deadline={value.deadline}
-            progress={value.progress}
-            peopleNum={value.peopleNum}
             place={value.place}
             latitude={value.latitude}
             longitude={value.longitude}
+            progress={value.progress}
+            peopleNum={value.peopleNum}
+            deadline={value.deadline}
+            type={value.type}
+            title={value.title}
           />
         </Link>
       ))}
       <PaginationContainer>
-        {mapdata.length > studiesPerPage && (
+        {studies.length > studiesPerPage && (
           <PaginationButton
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
@@ -93,9 +112,9 @@ const StudyList = () => {
             이전
           </PaginationButton>
         )}
-        {mapdata.length > studiesPerPage &&
+        {studies.length > studiesPerPage &&
           Array.from({
-            length: Math.ceil(mapdata.length / studiesPerPage),
+            length: Math.ceil(studies.length / studiesPerPage),
           }).map((value, place) => (
             <PaginationNumberButton
               key={place}
@@ -105,10 +124,10 @@ const StudyList = () => {
               {place + 1}
             </PaginationNumberButton>
           ))}
-        {mapdata.length > studiesPerPage && (
+        {studies.length > studiesPerPage && (
           <PaginationButton
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={endplace >= mapdata.length}
+            disabled={endplace >= studies.length}
           >
             다음
           </PaginationButton>
@@ -118,6 +137,8 @@ const StudyList = () => {
   );
 };
 
+
+
 const EventMarkerContainer = ({
   position,
   title,
@@ -126,6 +147,7 @@ const EventMarkerContainer = ({
   progress,
   peopleNum,
   place,
+  type,
 }) => {
   const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
@@ -156,12 +178,13 @@ const EventMarkerContainer = ({
     >
       {isVisible && (
         <OverCard
-          title={title}
-          skill={skill}
-          deadline={deadline}
-          progress={progress}
-          peopleNum={peopleNum}
-          place={place}
+        skill={skill}
+        place={place}
+        progress={progress}
+        peopleNum={peopleNum}
+        deadline={deadline}
+        type={type}
+        title={title}
           onClose={() => {
             setIsClicked(false);
             setIsVisible(false);
@@ -175,6 +198,19 @@ const EventMarkerContainer = ({
 const MainPage = () => {
   const [location, setLocation] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [studies, setStudies] = useState([]); // 변경
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/post/list")
+      .then((response) => {
+        setStudies(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
+
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
@@ -199,18 +235,19 @@ const MainPage = () => {
           style={{ width: "73%", height: "100%" }}
           level={3}
         >
-          {mapdata.map((value, place) => (
+          {studies.map((value, place) => (
             <EventMarkerContainer
               key={`EventMarkerContainer-${value.latitude}-${value.longitude}`}
               position={{ lat: value.latitude, lng: value.longitude }}
-              place={place}
+              skill={value.skill}
+              place={value.place}
               latitude={value.latitude}
               longitude={value.longitude}
-              title={value.title}
-              skill={value.skill}
-              deadline={value.deadline}
               progress={value.progress}
               peopleNum={value.peopleNum}
+              deadline={value.deadline}
+              type={value.type}
+              title={value.title}
             />
           ))}
         </Map>
