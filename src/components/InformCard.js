@@ -92,9 +92,9 @@ function shotInform(image, title, content, unit) {
       <img src={image} alt={title} style={
         title === "스택" ? StackIconCSS :
         title === "마감" ? FinishIconCSS :
-        title === "공간" ? PlaceIconCSS :
+        title === "장소" ? PlaceIconCSS :
         title === "인원" ? PeopleIconCSS :
-        title === "장소" ? DuringIconCSS : null
+        title === "기간" ? DuringIconCSS : null
       }/>
       <ShortTitleContainer>{title}</ShortTitleContainer>
       <ShortDetailContainer>{content}{unit}</ShortDetailContainer>
@@ -102,7 +102,7 @@ function shotInform(image, title, content, unit) {
   );
 }
 
-function InformCard({ title, skill, deadline, progress, peopleNum, place }) {
+function InformCard({ type, title, skill, deadline, progress, peopleNum, place }) {
   const navigate = useNavigate();
 
   function moveDetail() {
@@ -111,12 +111,13 @@ function InformCard({ title, skill, deadline, progress, peopleNum, place }) {
 
   return (
     <PageContainer onClick={moveDetail}>
+      {/* <TitleContainer>[{type}] {title}</TitleContainer> */}
       <TitleContainer>{title}</TitleContainer>
       {shotInform(StackIcon, "스택", skill, "")}
       {shotInform(FinishIcon, "마감", deadline, "")}
-      {shotInform(PlaceIcon, "공간", place, "")}
+      {shotInform(DuringIcon, "기간", progress, "개월")}
       {shotInform(PeopleIcon, "인원", peopleNum, "명")}
-      {shotInform(DuringIcon, "장소", progress, "")}
+      {shotInform(PlaceIcon, "장소", place, "")}
     </PageContainer>
   );
 }

@@ -7,23 +7,25 @@ export const mapdata = [
     "progress": "1",
     "peopleNum": "3",
     "deadline": "2023-06-17",
-    "type": "study",
-    "title": "스머프동산",
-    "createdAt": "2023-06-17T00:00:00",
-    "userName": "jiye"
+    "type": "스터디",
+    "done": false,
+    "title": "리액트 스터디 모집",
+    "content": "같이해요",
+    "userId": 1
   },
   {
-    "skill": "리액트",
+    "skill": "스프링",
     "place": "컴포즈",
     "latitude": 37.650885,
     "longitude": 127.013202,
     "progress": "1",
     "peopleNum": "3",
     "deadline": "2023-06-17",
-    "type": "study",
-    "title": "컴포즈",
-    "createdAt": "2023-06-17T00:00:00",
-    "userName": "jiye"
+    "type": "스터디",
+    "done": false,
+    "title": "스프링 스터디 모집",
+    "content": "같이해요",
+    "userId": 1
   },
   {
     "skill": "리액트",
@@ -33,10 +35,11 @@ export const mapdata = [
     "progress": "1",
     "peopleNum": "3",
     "deadline": "2023-06-17",
-    "type": "study",
-    "title": "블랙다운",
-    "createdAt": "2023-06-17T00:00:00",
-    "userName": "jiye"
+    "type": "프로젝트",
+    "done": false,
+    "title": "리액트 플젝 기획",
+    "content": "같이해요",
+    "userId": 1
   },
   {
     "skill": "리액트",
@@ -46,22 +49,24 @@ export const mapdata = [
     "progress": "1",
     "peopleNum": "3",
     "deadline": "2023-06-17",
-    "type": "study",
-    "title": "입구",
-    "createdAt": "2023-06-17T00:00:00",
-    "userName": "jiye"
+    "type": "프로젝트",
+    "done": false,
+    "title": "StarHub 프론트엔드",
+    "content": "같이해요",
+    "userId": 1
   },
   {
-    "skill": "임의의",
+    "skill": "스프링",
     "place": "임의의 장소",
     "latitude": 37.654,
     "longitude": 127.018,
     "progress": "1",
     "peopleNum": "3",
     "deadline": "2023-06-17",
-    "type": "study",
-    "title": "임의의 장소",
-    "createdAt": "2023-06-17T00:00:00",
-    "userName": "jiye"
+    "type": "프로젝트",
+    "done": false,
+    "title": "StarHub 백엔드",
+    "content": "같이해요",
+    "userId": 1
   }
-]
+];
