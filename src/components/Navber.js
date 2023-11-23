@@ -16,11 +16,6 @@ const TextLink = styled(Link)`
   text-decoration: none;
 `
 
-const Profile = styled.img`
-  width: 50px;
-  height: auto;
-`;
-
 const NavItems = styled.div`
   display: flex;
   align-items: center;
@@ -33,9 +28,8 @@ const NavItem = styled.div`
 `;
 
 const Navber = () => {
-  // 로그인 기능 구현 전 임시
-  const isLoggedIn = false;
-  const username = "John Doe";
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  // console.log(userInfo)
 
   return (
     <NavContainer>
@@ -48,10 +42,9 @@ const Navber = () => {
         </TextLink>
       </NavItems>
       <NavItems>
-        {isLoggedIn ? (
+        {userInfo!==null ? (
           <>
-            <NavItem>{username}</NavItem>
-            {/* <Profile src='' alt='사용자 이미지'/> */}
+            <NavItem>{userInfo.name} 님</NavItem>
             <NavItem>로그아웃</NavItem>
           </>
         ) : (
