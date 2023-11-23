@@ -2,11 +2,13 @@ import React from 'react';
 import styled from "styled-components";
 
 import StarIcon from "../assets/icons/StarIcon.png";
+import {Commentdata} from '../assets/data/Commentdata';
+import CommentList from './CommentList';
 
 const PageContainer = styled.div`
   display: flex;
   padding: 50px 200px 50px 200px;
-  background-color: #F6F1FB;
+  background-color: #fff;
   flex-direction: column;
 `;
 
@@ -17,7 +19,7 @@ const Box = styled.div`
   height: 100%;
   border-radius: 20px;
   background-color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   flex-direction: column;
 `;
 
@@ -68,34 +70,11 @@ const TextContent2 = styled.p`
   color: #313866;
 `;
 
-const Button = styled.button`
-  margin-top: 40px;
-  width: 150px;
-  height: 40px;
-  border: none;
-  border-radius: 10px;
-  background-color: #B3B4DC;
-  font-family: 'SCDream4';
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
 const HorizontalLine = styled.div`
   width: 100%;
   height: 2px;
   background-color: #7C8BBE;
   margin: 30px 0px 40px 0px;
-`;
-
-const CommentArea = styled.div`
-  display: flex;
-  margin: 50px 0px 0px 0px;
 `;
 
 const RowWrapper = styled.div`
@@ -105,59 +84,90 @@ const RowWrapper = styled.div`
   margin: 0px 0px 20px 0px;
 `;
 
-const StudyDetailPage2 = () => {
+const CommentArea = styled.div`
+  padding: 0px 20px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+`;
+
+const Textarea = styled.textarea`
+  flex: 1;
+  padding: 15px;
+  border: 3px solid #7C8BBE;
+  border-radius: 25px;
+  font-size: 18px;
+  font-family: 'SCDream4', sans-serif;
+  resize: none;
+`;
+
+const CommentButton = styled.button`
+  margin-top: 10px;
+  width: 95px;
+  height: 35px;
+  border: none;
+  border-radius: 30px;
+  background-color: #B3B4DC;
+  font-family: 'SCDream4';
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+const CommentButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const StudyDetailPageApplicant = (data) => {
 
   return (
     <PageContainer>
       <Box>
-        <RowWrapper>
+      <RowWrapper>
           <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '50px'}} />
-          <TitleText>[프로젝트] 덕성여대 지나가유</TitleText>
+          <TitleText>[{data.studyDetail.type}] {data.studyDetail.title}</TitleText>
         </RowWrapper>
-        <AuthText>닉네임 | 2023.11.05.</AuthText>
+        <AuthText>{data.studyDetail.userName} | {data.studyDetail.createdAt}.</AuthText>
         <SubWrapper>
           <SubtitleText>기술 스택</SubtitleText>
-          <TextContent>React.js</TextContent>
+          <TextContent>{data.studyDetail.skill}</TextContent>
         </SubWrapper>
         <Subbox>
           <SubWrapper>
             <SubtitleText>진행 장소</SubtitleText>
-            <TextContent>서울 강북구 삼양로 528-1 1층</TextContent>
+            <TextContent>{data.studyDetail.place}</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>진행 기간</SubtitleText>
-            <TextContent>2023.09.29~2023.12.25</TextContent>
+            <TextContent>{data.studyDetail.progress}개월</TextContent>
           </SubWrapper>
         </Subbox>
         <Subbox>
           <SubWrapper>
             <SubtitleText>모집 인원</SubtitleText>
-            <TextContent>3명</TextContent>
+            <TextContent>{data.studyDetail.peopleNum}명</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>모집 마감일</SubtitleText>
-            <TextContent>2023.09.20</TextContent>
+            <TextContent>{data.studyDetail.deadline}</TextContent>
           </SubWrapper>
         </Subbox>
         <HorizontalLine/>
         <SubtitleText>스터디 소개</SubtitleText>
-        <TextContent2>
-          프로젝트 소개<br/>
-          우리 대학은 자생, 자립, 자각의 창학 정신을 실현하고자 다양한 프로그램을 운영하고 있습니다.<br/><br/>
-          목표<br/>
-          10월 서비스 기획 완료<br/>
-          11월 UIUX 디자인 완료<br/>
-          12월 MVP 출시<br/><br/>
-          현재 팀원 구성<br/>
-          디자인 1명<br/>
-          개발자 1명<br/>
-        </TextContent2>
+        <TextContent2>{data.studyDetail.content}</TextContent2>
+        <HorizontalLine/>
       </Box>
-      <ButtonContainer>
-        <Button>스터디원 보기</Button>
-      </ButtonContainer>
+      <SubtitleText>댓글</SubtitleText>
+      <CommentArea>
+        <Textarea type="text" placeholder="댓글을 입력하세요."/>
+      <CommentButtonContainer>
+        <CommentButton>등록</CommentButton>
+      </CommentButtonContainer>
+      <CommentList comments={Commentdata} />
+      </CommentArea>
     </PageContainer>
   );
 };
 
-export default StudyDetailPage2;
+export default StudyDetailPageApplicant;

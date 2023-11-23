@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import StarHubIconNavbar from "../assets/icons/StarHubIconNavbar.png";
+import axios from 'axios';
 
 const NavContainer = styled.nav`
   display: flex;
@@ -16,11 +17,6 @@ const TextLink = styled(Link)`
   text-decoration: none;
 `
 
-const Profile = styled.img`
-  width: 50px;
-  height: auto;
-`;
-
 const NavItems = styled.div`
   display: flex;
   align-items: center;
@@ -33,9 +29,19 @@ const NavItem = styled.div`
 `;
 
 const Navber = () => {
-  // 로그인 기능 구현 전 임시
-  const isLoggedIn = false;
-  const username = "John Doe";
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')));
+  // console.log(userInfo.name)
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/user/logout?loginId=${userInfo.userId}`);
+      // 로그인 정보를 localStorage에서 삭제
+      localStorage.removeItem('userInfo');
+      setUserInfo(null);
+    } catch (error) {
+      console.error('Login failed:', error.message);
+    }
+  };
 
   return (
     <NavContainer>
@@ -48,11 +54,10 @@ const Navber = () => {
         </TextLink>
       </NavItems>
       <NavItems>
-        {isLoggedIn ? (
+        {userInfo!==null ? (
           <>
-            <NavItem>{username}</NavItem>
-            {/* <Profile src='' alt='사용자 이미지'/> */}
-            <NavItem>로그아웃</NavItem>
+            <NavItem>{userInfo.name} 님</NavItem>
+            <NavItem onClick={handleLogout}>로그아웃</NavItem>
           </>
         ) : (
           <TextLink to="/login">

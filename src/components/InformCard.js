@@ -102,11 +102,11 @@ function shotInform(image, title, content, unit) {
   );
 }
 
-function InformCard({ type, title, skill, deadline, progress, peopleNum, place }) {
+function InformCard({ type, postId, title, skill, deadline, progress, peopleNum, place }) {
   const navigate = useNavigate();
 
   function moveDetail() {
-    navigate('/studydetail');
+    navigate(`/studydetail/${postId}`);
   }
 
   return (
