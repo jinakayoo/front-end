@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import ProfileCard from '../components/ProfileCard';
 import PickIcon from "../assets/icons/PickIcon.png";
-import { applicantData } from "../assets/data/applicantdata";
+// import { applicantData } from "../assets/data/applicantdata";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const PageContainer = styled.div`
-  height: 1100px;
+  /* height: 1100px; */
   background-color: #f6f1fb;
+  padding-bottom: 100px;
 `;
 
 const PickContainer = styled.div`
@@ -42,7 +45,23 @@ const PickTitle = () => {
   );
 };
 
-const ApplicantListPage = () => {
+const ApplicantListPage = (postId) => {
+
+  const [applicantData, setApplicantData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/comment/pick/list?post_id=${postId}`);
+        setApplicantData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <PageContainer>
       <PickTitle />
@@ -51,11 +70,11 @@ const ApplicantListPage = () => {
         <ProfileCard
           key={index}
           name={applicant.name}
-          age={applicant.age}
+          introduction={applicant.introduction}
           email={applicant.email}
           phone_num={applicant.phone_num}
-          introduction={applicant.introduction}
-          image={applicant.image}
+          age={applicant.age}
+          // image={applicant.image}
         />
       ))} 
       </ListContainer>

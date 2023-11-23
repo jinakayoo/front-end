@@ -6,7 +6,7 @@ import styled from "styled-components";
 import InformCard from "../components/InformCard";
 import OverCard from "../components/OverCard";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const { kakao } = window;
 

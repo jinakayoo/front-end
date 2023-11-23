@@ -5,7 +5,7 @@ import PhoneIcon from "../assets/icons/PhoneIcon.png";
 import MessageIcon from "../assets/icons/MessageIcon.png";
 
 const PageContainer = styled.div`
-  height: 370px;
+  height: 230px;
   width: 280px;
   display: flex;
   flex-direction: column;
@@ -86,12 +86,12 @@ const EmailText = styled.div`
   color: #313866;
 `
 
-function ProfileCard({ name, age, email, phone_num, introduction, image }) {
+function ProfileCard({ name, introduction, email, phone_num, age }) {
   return (
     <PageContainer>
-      <ProfileImageContainer>
+      {/* <ProfileImageContainer>
         <ProfileImage src={HumanIcon} />
-      </ProfileImageContainer>
+      </ProfileImageContainer> */}
       <RowDiv>
         <NameText>{name}</NameText>
         <BirthText>{age}세</BirthText>
