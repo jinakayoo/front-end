@@ -88,12 +88,13 @@ const StudyList = () => {
   return (
     <ListContainer>
       {studiesToDisplay.map((value, place) => (
-        <Link
-          to={`/detail/${place}`}
-          style={{ textDecoration: "none" }}
-          key={place}
-        >
+        // <Link
+        //   to={`/detail/${place}`}
+        //   style={{ textDecoration: "none" }}
+        //   key={place}
+        // >
           <InformCard
+            postId={value.postId}
             skill={value.skill}
             place={value.place}
             latitude={value.latitude}
@@ -104,7 +105,7 @@ const StudyList = () => {
             type={value.type}
             title={value.title}
           />
-        </Link>
+        // </Link>
       ))}
       <PaginationContainer>
         {studies.length > studiesPerPage && (

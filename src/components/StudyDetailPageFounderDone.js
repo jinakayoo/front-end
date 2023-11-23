@@ -2,8 +2,6 @@ import React from 'react';
 import styled from "styled-components";
 
 import StarIcon from "../assets/icons/StarIcon.png";
-import {Commentdata} from '../assets/data/Commentdata';
-import CommentList from '../components/CommentList';
 
 const PageContainer = styled.div`
   display: flex;
@@ -98,7 +96,6 @@ const HorizontalLine = styled.div`
 const CommentArea = styled.div`
   display: flex;
   margin: 50px 0px 0px 0px;
-  flex-direction: column;
 `;
 
 const RowWrapper = styled.div`
@@ -108,63 +105,49 @@ const RowWrapper = styled.div`
   margin: 0px 0px 20px 0px;
 `;
 
-const StudyDetailPage0 = () => {
+const StudyDetailPageFounderDone = (data) => {
 
   return (
     <PageContainer>
       <Box>
         <RowWrapper>
           <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '50px'}} />
-          <TitleText>[프로젝트] 덕성여대 지나가유</TitleText>
+          <TitleText>[{data.studyDetail.type}] {data.studyDetail.title}</TitleText>
         </RowWrapper>
-        <AuthText>닉네임 | 2023.11.05.</AuthText>
+        <AuthText>{data.studyDetail.userName} | {data.studyDetail.createdAt}</AuthText>
         <SubWrapper>
           <SubtitleText>기술 스택</SubtitleText>
-          <TextContent>React.js</TextContent>
+          <TextContent>{data.studyDetail.skill}</TextContent>
         </SubWrapper>
         <Subbox>
           <SubWrapper>
             <SubtitleText>진행 장소</SubtitleText>
-            <TextContent>서울 강북구 삼양로 528-1 1층</TextContent>
+            <TextContent>{data.studyDetail.place}</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>진행 기간</SubtitleText>
-            <TextContent>2023.09.29~2023.12.25</TextContent>
+            <TextContent>{data.studyDetail.progress}개월</TextContent>
           </SubWrapper>
         </Subbox>
         <Subbox>
           <SubWrapper>
             <SubtitleText>모집 인원</SubtitleText>
-            <TextContent>3명</TextContent>
+            <TextContent>{data.studyDetail.peopleNum}명</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>모집 마감일</SubtitleText>
-            <TextContent>2023.09.20</TextContent>
+            <TextContent>{data.studyDetail.deadline}</TextContent>
           </SubWrapper>
         </Subbox>
         <HorizontalLine/>
         <SubtitleText>스터디 소개</SubtitleText>
-        <TextContent2>
-          프로젝트 소개<br/>
-          우리 대학은 자생, 자립, 자각의 창학 정신을 실현하고자 다양한 프로그램을 운영하고 있습니다.<br/><br/>
-          목표<br/>
-          10월 서비스 기획 완료<br/>
-          11월 UIUX 디자인 완료<br/>
-          12월 MVP 출시<br/><br/>
-          현재 팀원 구성<br/>
-          디자인 1명<br/>
-          개발자 1명<br/>
-        </TextContent2>
+        <TextContent2>{data.studyDetail.content}</TextContent2>
       </Box>
-      <CommentArea>
-        <SubtitleText>댓글</SubtitleText>
-        <CommentList comments={Commentdata} isSelectable/>
-      </CommentArea>
       <ButtonContainer>
-        <Button>스터디원 확정</Button>
+        <Button>스터디원 보기</Button>
       </ButtonContainer>
     </PageContainer>
   );
 };
 
-export default StudyDetailPage0;
+export default StudyDetailPageFounderDone;
