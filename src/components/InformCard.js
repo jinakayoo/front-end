@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const PageContainer = styled.div`
   width: 335px;
-  height: 115px;
+  height: 110px;
   border-radius: 5px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -24,7 +24,7 @@ const PageContainer = styled.div`
 const TitleContainer = styled.div`
   grid-column: span 2;
   color: #313866;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "GmarketSans";
   width: 100%;
   margin-bottom: 7px;
@@ -111,8 +111,8 @@ function InformCard({ type, postId, title, skill, deadline, progress, peopleNum,
 
   return (
     <PageContainer onClick={moveDetail}>
-      {/* <TitleContainer>[{type}] {title}</TitleContainer> */}
-      <TitleContainer>{title}</TitleContainer>
+      <TitleContainer>[{type}] {title}</TitleContainer>
+      {/* <TitleContainer>{title}</TitleContainer> */}
       {shotInform(StackIcon, "스택", skill, "")}
       {shotInform(FinishIcon, "마감", deadline, "")}
       {shotInform(DuringIcon, "기간", progress, "개월")}

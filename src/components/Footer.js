@@ -36,7 +36,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <Section>
-          <img src={StarHubIconFooterbar} alt={'Logo'} style={{ width: 'auto', height: '200px'}} />
+          <img src={StarHubIconFooterbar} alt={'Logo'} style={{ width: 'auto', height: '150px'}} />
       </Section>
         <Section>
           <TitleContent>Delvelopers</TitleContent>

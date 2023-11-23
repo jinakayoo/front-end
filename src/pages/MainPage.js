@@ -152,6 +152,7 @@ const EventMarkerContainer = ({
   peopleNum,
   place,
   type,
+  postId,
 }) => {
   const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
@@ -189,6 +190,7 @@ const EventMarkerContainer = ({
         deadline={deadline}
         type={type}
         title={title}
+        postId={postId}
           onClose={() => {
             setIsClicked(false);
             setIsVisible(false);
@@ -252,6 +254,7 @@ const MainPage = () => {
               deadline={value.deadline}
               type={value.type}
               title={value.title}
+              postId={value.postId}
             />
           ))}
         </Map>

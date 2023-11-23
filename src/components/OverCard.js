@@ -5,7 +5,8 @@ import FinishIcon from "../assets/icons/FinishIcon.png";
 import PlaceIcon from "../assets/icons/PlaceIcon.png";
 import PeopleIcon from "../assets/icons/PeopleIcon.png";
 import DuringIcon from "../assets/icons/DuringIcon.png";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AllContainer = styled.div`
   // 위쪽에 맞춰서 배치
@@ -28,12 +29,16 @@ const PageContainer = styled.div`
   border-radius: 15px;
 `;
 
+const LinkContainer = styled.div`
+  text-decoration: none;
+`;
+
 const TitleContainer = styled.div`
   grid-column: span 2;
   color: #313866;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "GmarketSans";
-  width: 70%;
+  width: 80%;
   margin-top: 15px;
   margin-bottom: -10px;
   margin-left: 20px;
@@ -135,8 +140,9 @@ function shotInform(image, title, content, unit) {
   );
 }
 
-function OverCard({ type, title, skill, deadline, progress, peopleNum, place, onClose, index }) {
-  console.log(title, skill, deadline, progress, peopleNum);
+function OverCard({ type, title, skill, deadline, progress, peopleNum, place, onClose, postId }) {
+  // console.log(title, skill, deadline, progress, peopleNum);
+  const navigate = useNavigate();
 
   const handleClose = () => {
     if (onClose) {
@@ -144,11 +150,15 @@ function OverCard({ type, title, skill, deadline, progress, peopleNum, place, on
     }
   };
 
+  function moveDetail() {
+    navigate(`/studydetail/${postId}`);
+  }
+
   return (
     <AllContainer>
-      <Link to={`/detail/${index}`} style={{ textDecoration: "none" }}>
-          {/* <TitleContainer>[{type}] {title}</TitleContainer> */}
-          <TitleContainer>{title}</TitleContainer>
+      <LinkContainer onClick={moveDetail}>
+          <TitleContainer>[{type}] {title}</TitleContainer>
+          {/* <TitleContainer>{title}</TitleContainer> */}
         <PageContainer>
           {shotInform(StackIcon, "스택", skill, "")}
           {shotInform(FinishIcon, "마감", deadline, "")}
@@ -156,7 +166,7 @@ function OverCard({ type, title, skill, deadline, progress, peopleNum, place, on
           {shotInform(PeopleIcon, "인원", peopleNum, "명")}
           {shotInform(PlaceIcon, "장소", place, "")}
         </PageContainer>
-      </Link>
+      </LinkContainer>
       <ClosedButton
         onClick={handleClose}
         style={{ cursor: "pointer", verticalAlign: "top" }}
