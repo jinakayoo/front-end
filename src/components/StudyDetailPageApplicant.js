@@ -136,7 +136,7 @@ const StudyDetailPageApplicant = (data) => {
         <Subbox>
           <SubWrapper>
             <SubtitleText>진행 장소</SubtitleText>
-            <TextContent>{data.studyDetail.plase}</TextContent>
+            <TextContent>{data.studyDetail.place}</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>진행 기간</SubtitleText>
