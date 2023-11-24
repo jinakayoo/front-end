@@ -129,12 +129,10 @@ const FindAddressButton = styled.button`
   cursor: pointer;
 `;
 
-function FindAddress({ setAddressObj, setLatLng }) {
+function FindAddress({ setAddressObj, setLatLng, setLocation }) {
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";
-    let localAddress = data.sido + " " + data.sigungu;
-
     if (data.addressType === "R") {
       if (data.bname !== "") {
         extraAddress += data.bname;
@@ -150,6 +148,8 @@ function FindAddress({ setAddressObj, setLatLng }) {
         areaAddress: "",
         townAddress: fullAddress,
       });
+
+      setLocation(fullAddress);
 
       const addressInput = document.getElementById("addressInput");
       if (addressInput) {
@@ -184,41 +184,34 @@ function FindAddress({ setAddressObj, setLatLng }) {
   };
 
   useEffect(() => {
-    // Kakao 지도 API를 로드
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAOMAP_API_KEY}&libraries=services`;
     document.head.appendChild(script);
-  
+
     script.onload = () => {
-      // 로드 후 주소 검색 객체 생성
       if (window.kakao && window.kakao.maps && window.kakao.maps.services) {
         const geocoder = new window.kakao.maps.services.Geocoder();
-        const address = new window.daum.Postcode({ oncomplete: handleComplete });
-        window.address = address; // global 변수로 저장
-  
-        // 여기서 Geocoder를 사용해도 안전합니다.
+        const address = new window.daum.Postcode({
+          oncomplete: handleComplete,
+        });
+        window.address = address;
       } else {
         console.error("Failed to load Kakao Maps API");
       }
     };
-  
+
     script.onerror = () => {
       console.error("Failed to load Kakao Maps SDK script");
     };
-  
+
     return () => {
-      // 컴포넌트가 언마운트 되면 스크립트 제거
       document.head.removeChild(script);
     };
   }, [handleComplete]);
-  
 
   return (
-    <FindAddressButton
-      type="button"
-      onClick={() => window.address.open()}
-    >
+    <FindAddressButton type="button" onClick={() => window.address.open()}>
       주소 찾기
     </FindAddressButton>
   );
@@ -234,6 +227,50 @@ const StudyRecruitPage = () => {
     latitude: null,
     longitude: null,
   });
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userName = userInfo.name;
+
+  const [recruitmentType, setRecruitmentType] = useState("");
+  const [techStack, setTechStack] = useState("");
+  const [recruitmentNum, setRecruitmentNum] = useState("");
+  const [duration, setDuration] = useState("");
+  const [location, setLocation] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectContent, setProjectContent] = useState("");
+
+  const handleSubmit = () => {
+    const postData = {
+      skill: techStack,
+      place: location,
+      latitude: latLng.latitude,
+      longitude: latLng.longitude,
+      progress: duration,
+      peopleNum: recruitmentNum,
+      deadline,
+      type: recruitmentType,
+      done: false,
+      title: projectTitle,
+      content: projectContent,
+      userId: 1,
+    };
+
+    fetch("http://localhost:8080/api/post/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   useEffect(() => {
     console.log("Latitude:", latLng.latitude);
@@ -258,6 +295,8 @@ const StudyRecruitPage = () => {
             <Input
               type="text"
               placeholder="스터디와 프로젝트 중 선택해주세요."
+              value={recruitmentType}
+              onChange={(e) => setRecruitmentType(e.target.value)}
             />
           </InputWrapper>
           <InputWrapper>
@@ -265,6 +304,8 @@ const StudyRecruitPage = () => {
             <Input
               type="text"
               placeholder="사용되는 기술 스택을 입력해주세요. ex) 리액트, 스프링..."
+              value={techStack}
+              onChange={(e) => setTechStack(e.target.value)}
             />
           </InputWrapper>
         </Inputbox>
@@ -274,11 +315,18 @@ const StudyRecruitPage = () => {
             <Input
               type="text"
               placeholder="모집 인원 수를 입력해주세요. ex) 3~5"
+              value={recruitmentNum}
+              onChange={(e) => setRecruitmentNum(e.target.value)}
             />
           </InputWrapper>
           <InputWrapper>
             <TextInput>진행 기간</TextInput>
-            <Input type="text" placeholder="진행 기간을 입력해주세요." />
+            <Input
+              type="text"
+              placeholder="진행 기간을 입력해주세요."
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+            />
           </InputWrapper>
         </Inputbox>
         <Inputbox>
@@ -288,12 +336,23 @@ const StudyRecruitPage = () => {
               type="text"
               id="addressInput"
               placeholder="주소를 입력해주세요."
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
-            <FindAddress setAddressObj={setAddressObj} setLatLng={setLatLng} />
+            <FindAddress
+              setAddressObj={setAddressObj}
+              setLatLng={setLatLng}
+              setLocation={setLocation}
+            />
           </InputWrapper>
           <InputWrapper>
             <TextInput>모집 마감일</TextInput>
-            <Input type="text" placeholder="**** - ** - **" />
+            <Input
+              type="text"
+              placeholder="**** - ** - **"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+            />
           </InputWrapper>
         </Inputbox>
       </Info>
@@ -308,12 +367,22 @@ const StudyRecruitPage = () => {
       <HorizontalLine />
       <Intro>
         <TextInput>제목</TextInput>
-        <Input type="text" placeholder="제목을 입력해주세요." />
+        <Input
+          type="text"
+          placeholder="제목을 입력해주세요."
+          value={projectTitle}
+          onChange={(e) => setProjectTitle(e.target.value)}
+        />
         <TextInput>내용</TextInput>
-        <Textarea type="text" placeholder="내용을 입력해주세요." />
+        <Textarea
+          type="text"
+          placeholder="내용을 입력해주세요."
+          value={projectContent}
+          onChange={(e) => setProjectContent(e.target.value)}
+        />
       </Intro>
       <ButtonContainer>
-        <Button>글 등록</Button>
+        <Button onClick={handleSubmit}>글 등록</Button>
       </ButtonContainer>
     </PageContainer>
   );
