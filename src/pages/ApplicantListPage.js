@@ -52,6 +52,7 @@ const ApplicantListPage = (postId) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // const response = await axios.get(`http://localhost:8080/api/comment/pick/list?post_id=1`);
         const response = await axios.get(`http://localhost:8080/api/comment/pick/list?post_id=${postId}`);
         setApplicantData(response.data);
       } catch (error) {
@@ -69,11 +70,11 @@ const ApplicantListPage = (postId) => {
       {applicantData.map((applicant, index) => (
         <ProfileCard
           key={index}
-          name={applicant.name}
-          introduction={applicant.introduction}
-          email={applicant.email}
-          phone_num={applicant.phone_num}
-          age={applicant.age}
+          name={applicant.user.name}
+          introduction={applicant.user.introduction}
+          email={applicant.user.email}
+          phone_num={applicant.user.phoneNum}
+          age={applicant.user.age}
           // image={applicant.image}
         />
       ))} 
