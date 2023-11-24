@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import StarIcon from "../assets/icons/StarIcon.png";
 import DaumPostcode from "react-daum-postcode";
-import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
 
 const PageContainer = styled.div`
   padding: 50px 100px 50px 100px;

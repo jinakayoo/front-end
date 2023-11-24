@@ -11,14 +11,20 @@ const PageContainer = styled.div`
   width: 335px;
   height: 110px;
   border-radius: 5px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto auto auto;
   padding: 10px 20px;
-  padding-bottom: 20px;
+  padding-bottom: 32px;
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
+`;
+
+const GridContainer = styled.div`
+  width: 335px;
+  height: 110px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto auto;
+  padding-bottom: 2px;
 `;
 
 const TitleContainer = styled.div`
@@ -50,7 +56,7 @@ const ShortTitleContainer = styled.div`
 
 const ShortDetailContainer = styled.div`
   text-decoration: none;
-  text-align: center;
+  /* text-align: center; */
   color: #313866;
   font-size: 16px;
   font-family: "SCDream4";
@@ -87,20 +93,41 @@ const DuringIconCSS = {
 };
 
 function shotInform(image, title, content, unit) {
+  const isPlace = title === "장소";
+  let displayContent = content;
+
+  if (isPlace) {
+    const match = content.match(/\(([^)]+)\)/); 
+    displayContent = match ? match[1] : "";
+  }
+
   return (
     <ShortContainer>
-      <img src={image} alt={title} style={
-        title === "스택" ? StackIconCSS :
-        title === "마감" ? FinishIconCSS :
-        title === "장소" ? PlaceIconCSS :
-        title === "인원" ? PeopleIconCSS :
-        title === "기간" ? DuringIconCSS : null
-      }/>
+      <img
+        src={image}
+        alt={title}
+        style={
+          title === "스택"
+            ? StackIconCSS
+            : title === "마감"
+            ? FinishIconCSS
+            : title === "장소"
+            ? PlaceIconCSS
+            : title === "인원"
+            ? PeopleIconCSS
+            : title === "기간"
+            ? DuringIconCSS
+            : null
+        }
+      />
       <ShortTitleContainer>{title}</ShortTitleContainer>
-      <ShortDetailContainer>{content}{unit}</ShortDetailContainer>
+      <ShortDetailContainer style={{ width: isPlace ? "70%" : "auto" }}>
+        {displayContent} {unit}
+      </ShortDetailContainer>
     </ShortContainer>
   );
 }
+
 
 function InformCard({ type, postId, title, skill, deadline, progress, peopleNum, place }) {
   const navigate = useNavigate();
@@ -111,12 +138,14 @@ function InformCard({ type, postId, title, skill, deadline, progress, peopleNum,
 
   return (
     <PageContainer onClick={moveDetail}>
+      <GridContainer>
       <TitleContainer>[{type}] {title}</TitleContainer>
       {/* <TitleContainer>{title}</TitleContainer> */}
       {shotInform(StackIcon, "스택", skill, "")}
       {shotInform(FinishIcon, "마감", deadline, "")}
       {shotInform(DuringIcon, "기간", progress, "개월")}
       {shotInform(PeopleIcon, "인원", peopleNum, "명")}
+      </GridContainer>
       {shotInform(PlaceIcon, "장소", place, "")}
     </PageContainer>
   );
