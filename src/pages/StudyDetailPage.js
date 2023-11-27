@@ -16,7 +16,7 @@ const StudyDetailPage = () => {
     axios
       .get(`http://localhost:8080/api/post/detail?post_id=${postId}`)
       .then((response) => {
-        // console.log(response.data)
+        // console.log(response.data.done)
         setStudyDetail(response.data)
       })
       .catch((error) => {

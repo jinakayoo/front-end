@@ -130,7 +130,7 @@ const CommentButtonContainer = styled.div`
 
 const StudyDetailPageApplicant = (data) => {
   const [comment, setComment] = useState("");
-  console.log(data);
+  // console.log(data);
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const userId = userInfo.userId;

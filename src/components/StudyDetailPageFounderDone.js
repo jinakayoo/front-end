@@ -112,36 +112,36 @@ const StudyDetailPageFounderDone = (data) => {
       <Box>
         <RowWrapper>
           <img src={StarIcon} alt={'Star Icon'} style={{ width: 'auto', height: '50px'}} />
-          <TitleText>[{data.studyDetail.type}] {data.studyDetail.title}</TitleText>
+          <TitleText>[{data.studyDetail[0].type}] {data.studyDetail[0].title}</TitleText>
         </RowWrapper>
-        <AuthText>{data.studyDetail.userName} | {data.studyDetail.createdAt}</AuthText>
+        <AuthText>{data.studyDetail[0].userName} | {data.studyDetail[0].createdAt}</AuthText>
         <SubWrapper>
           <SubtitleText>기술 스택</SubtitleText>
-          <TextContent>{data.studyDetail.skill}</TextContent>
+          <TextContent>{data.studyDetail[0].skill}</TextContent>
         </SubWrapper>
         <Subbox>
           <SubWrapper>
             <SubtitleText>진행 장소</SubtitleText>
-            <TextContent>{data.studyDetail.place}</TextContent>
+            <TextContent>{data.studyDetail[0].place}</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>진행 기간</SubtitleText>
-            <TextContent>{data.studyDetail.progress}개월</TextContent>
+            <TextContent>{data.studyDetail[0].progress}개월</TextContent>
           </SubWrapper>
         </Subbox>
         <Subbox>
           <SubWrapper>
             <SubtitleText>모집 인원</SubtitleText>
-            <TextContent>{data.studyDetail.peopleNum}명</TextContent>
+            <TextContent>{data.studyDetail[0].peopleNum}명</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>모집 마감일</SubtitleText>
-            <TextContent>{data.studyDetail.deadline}</TextContent>
+            <TextContent>{data.studyDetail[0].deadline}</TextContent>
           </SubWrapper>
         </Subbox>
         <HorizontalLine/>
         <SubtitleText>스터디 소개</SubtitleText>
-        <TextContent2>{data.studyDetail.content}</TextContent2>
+        <TextContent2>{data.studyDetail[0].content}</TextContent2>
       </Box>
       <ButtonContainer>
         <Button>스터디원 보기</Button>

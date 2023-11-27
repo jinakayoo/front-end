@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const CommentListContainer = styled.div`
   width: 100%;
@@ -25,7 +26,25 @@ const Content = styled.div`
   margin: 5px 0;
 `;
 
-const CommentList = ({ comments, isSelectable, onCommentSelect }) => {
+const Button = styled.button`
+  margin-top: 40px;
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: #b3b4dc;
+  font-family: "SCDream4";
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const CommentList = ({ comments, isSelectable }) => {
   const [selectedComments, setSelectedComments] = useState([]);
 
   const handleCommentClick = (index) => {
@@ -38,27 +57,61 @@ const CommentList = ({ comments, isSelectable, onCommentSelect }) => {
         // 선택되지 않은 경우, 선택 추가
         setSelectedComments([...selectedComments, index]);
       }
-
-      onCommentSelect(selectedComments.join(','));
     }
   };
 
-  return (
-    <CommentListContainer>
-      {comments.map((comment, index) => (
-        <CommentItem
-          key={index}
-          isSelected={selectedComments.includes(index)}
-          isSelectable={isSelectable}
-          onClick={() => handleCommentClick(index)}
-        >
-          <div>{comment.userName}</div>
-          <div>{comment.createdAt}</div>
-          <Content>{comment.content}</Content>
-        </CommentItem>
-      ))}
-    </CommentListContainer>
-  );
+  const handleConfirm = () => {
+    axios
+      .put(`http://localhost:8080/api/comment/pick?commentIdList=${selectedComments}`)
+      .then((response) => {
+        console.log(response.data)
+        // console.log(`http://localhost:8080/api/comment/pick?commentIdList=${selectedComments}`)
+        // window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error fetching comment create:', error.message);
+      });
+  };
+
+  if (isSelectable) {
+    return (
+      <CommentListContainer>
+        {comments.map((comment, index) => (
+          <CommentItem
+            key={index}
+            isSelected={selectedComments.includes(index)}
+            isSelectable={isSelectable}
+            onClick={() => handleCommentClick(index)}
+          >
+            <div>{comment.userName}</div>
+            <div>{comment.createdAt}</div>
+            <Content>{comment.content}</Content>
+          </CommentItem>
+        ))}
+        <ButtonContainer>
+          <Button onClick={handleConfirm}>스터디원 확정</Button>
+        </ButtonContainer>
+      </CommentListContainer>
+    );
+  } else{
+    return (
+      <CommentListContainer>
+        {comments.map((comment, index) => (
+          <CommentItem
+            key={index}
+            isSelected={selectedComments.includes(index)}
+            isSelectable={isSelectable}
+            onClick={() => handleCommentClick(index)}
+          >
+            <div>{comment.userName}</div>
+            <div>{comment.createdAt}</div>
+            <Content>{comment.content}</Content>
+          </CommentItem>
+        ))}
+      </CommentListContainer>
+    );
+  }
+
 };
 
 export default CommentList;
