@@ -140,7 +140,7 @@ function shotInform(image, title, content, unit) {
         }
       />
       <ShortTitleContainer>{title}</ShortTitleContainer>
-      <ShortDetailContainer style={{ width: isPlace ? "70%" : "auto" }}>
+      <ShortDetailContainer style={{ width: isPlace ? "80%" : "auto" }}>
         {displayContent} {unit}
       </ShortDetailContainer>
     </ShortContainer>

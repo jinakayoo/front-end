@@ -229,7 +229,7 @@ const StudyRecruitPage = () => {
   });
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const userName = userInfo.name;
+  const userId = userInfo.userId;
 
   const [recruitmentType, setRecruitmentType] = useState("");
   const [techStack, setTechStack] = useState("");
@@ -255,7 +255,7 @@ const StudyRecruitPage = () => {
       done: false,
       title: projectTitle,
       content: projectContent,
-      userId: 1,
+      userId: userId,
     };
 
     fetch("http://localhost:8080/api/post/create", {
