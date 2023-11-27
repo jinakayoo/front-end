@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import StarIcon from "../assets/icons/StarIcon.png";
 import DaumPostcode from "react-daum-postcode";
+import { useNavigate } from "react-router-dom";
 
 const PageContainer = styled.div`
   padding: 50px 100px 50px 100px;
@@ -239,6 +240,8 @@ const StudyRecruitPage = () => {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectContent, setProjectContent] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = () => {
     const postData = {
       skill: techStack,
@@ -269,6 +272,8 @@ const StudyRecruitPage = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
+
+      navigate('/');
   };
 
   useEffect(() => {
