@@ -49,20 +49,16 @@ const CommentList = ({ comments, isSelectable, postId }) => {
   const [selectedComments, setSelectedComments] = useState([]);
   
   const navigate = useNavigate();
-  function moveList() {
-    navigate(`/applicantlist/${postId}`);
-  }
 
-
-  const handleCommentClick = (index) => {
+  const handleCommentClick = (commentId) => {
     if (isSelectable) {
       // 선택 가능한 경우에만 선택 상태를 업데이트
-      if (selectedComments.includes(index)) {
+      if (selectedComments.includes(commentId)) {
         // 이미 선택된 경우, 선택 해제
-        setSelectedComments(selectedComments.filter((selected) => selected !== index));
+        setSelectedComments(selectedComments.filter((selected) => selected !== commentId));
       } else {
         // 선택되지 않은 경우, 선택 추가
-        setSelectedComments([...selectedComments, index]);
+        setSelectedComments([...selectedComments, commentId]);
       }
     }
   };
@@ -86,10 +82,10 @@ const CommentList = ({ comments, isSelectable, postId }) => {
       <CommentListContainer>
         {comments.map((comment, index) => (
           <CommentItem
-            key={index}
-            isSelected={selectedComments.includes(index)}
+            key={comment.commentId}
+            isSelected={selectedComments.includes(comment.commentId)}
             isSelectable={isSelectable}
-            onClick={() => handleCommentClick(index)}
+            onClick={() => handleCommentClick(comment.commentId)}
           >
             <div>{comment.userName}</div>
             <div>{comment.createdAt}</div>
@@ -106,10 +102,10 @@ const CommentList = ({ comments, isSelectable, postId }) => {
       <CommentListContainer>
         {comments.map((comment, index) => (
           <CommentItem
-            key={index}
-            isSelected={selectedComments.includes(index)}
+            key={comment.commentId}
+            isSelected={selectedComments.includes(comment.commentId)}
             isSelectable={isSelectable}
-            onClick={() => handleCommentClick(index)}
+            onClick={() => handleCommentClick(comment.commentId)}
           >
             <div>{comment.userName}</div>
             <div>{comment.createdAt}</div>
