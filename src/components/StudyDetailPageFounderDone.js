@@ -23,6 +23,14 @@ const Box = styled.div`
   flex-direction: column;
 `;
 
+const AddressContent = styled.p`
+  margin: 0px 0px 20px 20px;
+  width: 700px;
+  font-size: 18px;
+  font-family: "SCDream4";
+  color: #313866;
+`;
+
 const TitleText = styled.p`
   margin: 0px 0px 0px 10px;
   font-size: 50px;
@@ -123,13 +131,13 @@ const StudyDetailPageFounderDone = (data) => {
         </RowWrapper>
         <AuthText>{data.studyDetail[0].userName} | {data.studyDetail[0].createdAt}</AuthText>
         <SubWrapper>
-          <SubtitleText>기술 스택</SubtitleText>
-          <TextContent>{data.studyDetail[0].skill}</TextContent>
+            <SubtitleText>진행 장소</SubtitleText>
+            <AddressContent>{data.studyDetail[0].place}</AddressContent>
         </SubWrapper>
         <Subbox>
           <SubWrapper>
-            <SubtitleText>진행 장소</SubtitleText>
-            <TextContent>{data.studyDetail[0].place}</TextContent>
+          <SubtitleText>기술 스택</SubtitleText>
+          <TextContent>{data.studyDetail[0].skill}</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>진행 기간</SubtitleText>
