@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 import StarIcon from "../assets/icons/StarIcon.png";
 import { Commentdata } from "../assets/data/Commentdata";
 import CommentList from "./CommentList";
+import axios from 'axios';
 
 const PageContainer = styled.div`
   display: flex;
@@ -117,7 +118,25 @@ const RowWrapper = styled.div`
 `;
 
 const StudyDetailPageFounder = (data) => {
-  // console.log(data.studyDetail)
+  const [selectedComment, setSelectedComment] = useState('');
+
+  const handleCommentSelect = (selectedComments) => {
+    setSelectedComment(selectedComments);
+    console.log('Selected Comments:', selectedComment);
+  };
+
+  const handleConfirm = () => {
+    axios
+      .put(`http://localhost:8080/api/comment/pick?commentIdList=${selectedComment}`)
+      .then((response) => {
+        // console.log(response.data)
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error fetching comment create:', error.message);
+        // console.log(`http://localhost:8080/api/comment/pick?commentId=${selectedComment}`);
+      });
+  };
 
   return (
     <PageContainer>
@@ -129,46 +148,46 @@ const StudyDetailPageFounder = (data) => {
             style={{ width: "auto", height: "50px" }}
           />
           <TitleText>
-            [{data.studyDetail.type}] {data.studyDetail.title}
+            [{data.studyDetail[0].type}] {data.studyDetail[0].title}
           </TitleText>
         </RowWrapper>
         <AuthText>
-          {data.studyDetail.userName} | {data.studyDetail.createdAt}
+          {data.studyDetail[0].userName} | {data.studyDetail[0].createdAt}
         </AuthText>
         <SubWrapper>
           <SubtitleText>진행 장소</SubtitleText>
-          <AddressContent>{data.studyDetail.place}</AddressContent>
+          <AddressContent>{data.studyDetail[0].place}</AddressContent>
         </SubWrapper>
         <Subbox>
           <SubWrapper>
             <SubtitleText>기술 스택</SubtitleText>
-            <TextContent>{data.studyDetail.skill}</TextContent>
+            <TextContent>{data.studyDetail[0].skill}</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>진행 기간</SubtitleText>
-            <TextContent>{data.studyDetail.progress}개월</TextContent>
+            <TextContent>{data.studyDetail[0].progress}개월</TextContent>
           </SubWrapper>
         </Subbox>
         <Subbox>
           <SubWrapper>
             <SubtitleText>모집 인원</SubtitleText>
-            <TextContent>{data.studyDetail.peopleNum}명</TextContent>
+            <TextContent>{data.studyDetail[0].peopleNum}명</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>모집 마감일</SubtitleText>
-            <TextContent>{data.studyDetail.deadline}</TextContent>
+            <TextContent>{data.studyDetail[0].deadline}</TextContent>
           </SubWrapper>
         </Subbox>
         <HorizontalLine />
         <SubtitleText>스터디 소개</SubtitleText>
-        <TextContent2>{data.studyDetail.content}</TextContent2>
+        <TextContent2>{data.studyDetail[0].content}</TextContent2>
       </Box>
       <CommentArea>
         <SubtitleText>댓글</SubtitleText>
-        <CommentList comments={Commentdata} isSelectable />
+        <CommentList comments={data.studyDetail[2]} isSelectable onCommentSelect={handleCommentSelect} />
       </CommentArea>
       <ButtonContainer>
-        <Button>스터디원 확정</Button>
+        <Button onClick={handleConfirm}>스터디원 확정</Button>
       </ButtonContainer>
     </PageContainer>
   );

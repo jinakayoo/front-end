@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 import StarIcon from "../assets/icons/StarIcon.png";
 import { Commentdata } from "../assets/data/Commentdata";
 import CommentList from "./CommentList";
+import axios from 'axios';
 
 const PageContainer = styled.div`
   display: flex;
@@ -128,6 +129,29 @@ const CommentButtonContainer = styled.div`
 `;
 
 const StudyDetailPageApplicant = (data) => {
+  const [comment, setComment] = useState("");
+  console.log(data);
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userId = userInfo.userId;
+
+  const handleSubmit = () => {
+    axios
+      .post(`http://localhost:8080/api/comment/create`, {
+        postId:data.studyDetail[1],
+        userId:userId,
+        content:comment,
+        pick:false,
+      })
+      .then((response) => {
+        // console.log(response.data)
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error fetching comment create:', error.message);
+      });
+  };
+
   return (
     <PageContainer>
       <Box>
@@ -138,50 +162,54 @@ const StudyDetailPageApplicant = (data) => {
             style={{ width: "auto", height: "50px" }}
           />
           <TitleText>
-            [{data.studyDetail.type}] {data.studyDetail.title}
+            [{data.studyDetail[0].type}] {data.studyDetail[0].title}
           </TitleText>
         </RowWrapper>
         <AuthText>
-          {data.studyDetail.userName} | {data.studyDetail.createdAt}.
+          {data.studyDetail[0].userName} | {data.studyDetail[0].createdAt}.
         </AuthText>
         <SubWrapper>
           <SubWrapper>
             <SubtitleText>진행 장소</SubtitleText>
-            <AddressContent>{data.studyDetail.place}</AddressContent>
+            <AddressContent>{data.studyDetail[0].place}</AddressContent>
           </SubWrapper>
         </SubWrapper>
         <Subbox>
           <SubWrapper>
             <SubtitleText>기술 스택</SubtitleText>
-            <TextContent>{data.studyDetail.skill}</TextContent>
+            <TextContent>{data.studyDetail[0].skill}</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>진행 기간</SubtitleText>
-            <TextContent>{data.studyDetail.progress}개월</TextContent>
+            <TextContent>{data.studyDetail[0].progress}개월</TextContent>
           </SubWrapper>
         </Subbox>
         <Subbox>
           <SubWrapper>
             <SubtitleText>모집 인원</SubtitleText>
-            <TextContent>{data.studyDetail.peopleNum}명</TextContent>
+            <TextContent>{data.studyDetail[0].peopleNum}명</TextContent>
           </SubWrapper>
           <SubWrapper>
             <SubtitleText>모집 마감일</SubtitleText>
-            <TextContent>{data.studyDetail.deadline}</TextContent>
+            <TextContent>{data.studyDetail[0].deadline}</TextContent>
           </SubWrapper>
         </Subbox>
         <HorizontalLine />
         <SubtitleText>스터디 소개</SubtitleText>
-        <TextContent2>{data.studyDetail.content}</TextContent2>
+        <TextContent2>{data.studyDetail[0].content}</TextContent2>
         <HorizontalLine />
       </Box>
       <SubtitleText>댓글</SubtitleText>
       <CommentArea>
-        <Textarea type="text" placeholder="댓글을 입력하세요." />
+        <Textarea
+          type="text"
+          placeholder="댓글을 입력해주세요."
+          onChange={(e) => setComment(e.target.value)}
+        />
         <CommentButtonContainer>
-          <CommentButton>등록</CommentButton>
+          <CommentButton onClick={handleSubmit}>등록</CommentButton>
         </CommentButtonContainer>
-        <CommentList comments={Commentdata} />
+        <CommentList comments={data.studyDetail[2]} />
       </CommentArea>
     </PageContainer>
   );
