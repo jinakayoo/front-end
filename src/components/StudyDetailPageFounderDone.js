@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 
 import StarIcon from "../assets/icons/StarIcon.png";
 
@@ -106,6 +108,11 @@ const RowWrapper = styled.div`
 `;
 
 const StudyDetailPageFounderDone = (data) => {
+  const navigate = useNavigate();
+
+  function moveDmoveListetail() {
+    navigate(`/applicantlist/${data.postId}`);
+  }
 
   return (
     <PageContainer>
@@ -144,7 +151,7 @@ const StudyDetailPageFounderDone = (data) => {
         <TextContent2>{data.studyDetail[0].content}</TextContent2>
       </Box>
       <ButtonContainer>
-        <Button>스터디원 보기</Button>
+        <Button onClick={moveDmoveListetail}>스터디원 보기</Button>
       </ButtonContainer>
     </PageContainer>
   );

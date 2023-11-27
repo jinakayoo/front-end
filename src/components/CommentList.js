@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CommentListContainer = styled.div`
   width: 100%;
@@ -44,8 +45,14 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const CommentList = ({ comments, isSelectable }) => {
+const CommentList = ({ comments, isSelectable, postId }) => {
   const [selectedComments, setSelectedComments] = useState([]);
+  
+  const navigate = useNavigate();
+  function moveList() {
+    navigate(`/applicantlist/${postId}`);
+  }
+
 
   const handleCommentClick = (index) => {
     if (isSelectable) {
@@ -71,6 +78,7 @@ const CommentList = ({ comments, isSelectable }) => {
       .catch((error) => {
         console.error('Error fetching comment create:', error.message);
       });
+    navigate(`/applicantlist/${postId}`);
   };
 
   if (isSelectable) {

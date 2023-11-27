@@ -105,8 +105,6 @@ const StudyDetailPageFounder = (data) => {
     setSelectedComment(selectedComments);
   };
 
-
-
   return (
     <PageContainer>
       <Box>
@@ -153,7 +151,7 @@ const StudyDetailPageFounder = (data) => {
       </Box>
       <CommentArea>
         <SubtitleText>댓글</SubtitleText>
-        <CommentList comments={data.studyDetail[2]} isSelectable onCommentSelect={handleCommentSelect} />
+        <CommentList comments={data.studyDetail[2]} isSelectable onCommentSelect={handleCommentSelect} postId={data.postId}/>
       </CommentArea>
     </PageContainer>
   );

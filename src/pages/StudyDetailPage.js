@@ -41,11 +41,11 @@ const StudyDetailPage = () => {
   if (isCurrentUser) {
     if (studyDetail.done) {
       return (
-        <StudyDetailPageFounderDone studyDetail={detailArray} />
+        <StudyDetailPageFounderDone studyDetail={detailArray} postId={postId}/>
       );
     } else {
       return (
-        <StudyDetailPageFounder studyDetail={detailArray} />
+        <StudyDetailPageFounder studyDetail={detailArray} postId={postId}/>
         );
     }
   } else {
