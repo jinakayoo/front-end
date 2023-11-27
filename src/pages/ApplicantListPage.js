@@ -5,6 +5,7 @@ import PickIcon from "../assets/icons/PickIcon.png";
 // import { applicantData } from "../assets/data/applicantdata";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const PageContainer = styled.div`
   /* height: 1100px; */
@@ -45,9 +46,11 @@ const PickTitle = () => {
   );
 };
 
-const ApplicantListPage = (postId) => {
+const ApplicantListPage = () => {
 
   const [applicantData, setApplicantData] = useState([]);
+
+  const { postId } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {

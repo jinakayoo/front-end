@@ -48,7 +48,7 @@ const ShortTitleContainer = styled.div`
   text-decoration: none;
   text-align: center;
   align-items: center;
-  color: #7C8BBE;
+  color: #7c8bbe;
   font-size: 16px;
   font-family: "SCDream4";
   margin: 0px 5px;
@@ -97,7 +97,7 @@ function shotInform(image, title, content, unit) {
   let displayContent = content;
 
   if (isPlace) {
-    const match = content.match(/\(([^)]+)\)/); 
+    const match = content.match(/\(([^)]+)\)/);
     displayContent = match ? match[1] : "";
   }
 
@@ -121,15 +121,23 @@ function shotInform(image, title, content, unit) {
         }
       />
       <ShortTitleContainer>{title}</ShortTitleContainer>
-      <ShortDetailContainer style={{ width: isPlace ? "70%" : "auto" }}>
+      <ShortDetailContainer style={{ width: isPlace ? "80%" : "auto" }}>
         {displayContent} {unit}
       </ShortDetailContainer>
     </ShortContainer>
   );
 }
 
-
-function InformCard({ type, postId, title, skill, deadline, progress, peopleNum, place }) {
+function InformCard({
+  type,
+  postId,
+  title,
+  skill,
+  deadline,
+  progress,
+  peopleNum,
+  place,
+}) {
   const navigate = useNavigate();
 
   function moveDetail() {
@@ -139,12 +147,14 @@ function InformCard({ type, postId, title, skill, deadline, progress, peopleNum,
   return (
     <PageContainer onClick={moveDetail}>
       <GridContainer>
-      <TitleContainer>[{type}] {title}</TitleContainer>
-      {/* <TitleContainer>{title}</TitleContainer> */}
-      {shotInform(StackIcon, "스택", skill, "")}
-      {shotInform(FinishIcon, "마감", deadline, "")}
-      {shotInform(DuringIcon, "기간", progress, "개월")}
-      {shotInform(PeopleIcon, "인원", peopleNum, "명")}
+        <TitleContainer>
+          [{type}] {title}
+        </TitleContainer>
+        {/* <TitleContainer>{title}</TitleContainer> */}
+        {shotInform(StackIcon, "스택", skill, "")}
+        {shotInform(FinishIcon, "마감", deadline, "")}
+        {shotInform(DuringIcon, "기간", progress, "개월")}
+        {shotInform(PeopleIcon, "인원", peopleNum, "명")}
       </GridContainer>
       {shotInform(PlaceIcon, "장소", place, "")}
     </PageContainer>
