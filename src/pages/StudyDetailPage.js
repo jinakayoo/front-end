@@ -9,6 +9,7 @@ import StudyDetailPageFounderDone from '../components/StudyDetailPageFounderDone
 const StudyDetailPage = () => {
   const { postId } = useParams();
   const [studyDetail, setStudyDetail] = useState([]);
+  const [comments, setComments] = useState([]);
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   useEffect(() => {
@@ -21,24 +22,35 @@ const StudyDetailPage = () => {
       .catch((error) => {
         console.error('Error fetching study detail:', error.message);
       });
+      axios
+      .get(`http://localhost:8080/api/comment/list?post_id=${postId}`)
+      .then((response) => {
+        // console.log(response.data)
+        setComments(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching study detail:', error.message);
+      });
   }, [postId]);
 
   // userInfo와 studyDetail의 userName이 같은지 확인
   const isCurrentUser = userInfo && userInfo.name === studyDetail.userName;
 
+  const detailArray = [studyDetail, postId, comments];
+
   if (isCurrentUser) {
     if (studyDetail.done) {
       return (
-        <StudyDetailPageFounderDone studyDetail={studyDetail} />
+        <StudyDetailPageFounderDone studyDetail={detailArray} />
       );
     } else {
       return (
-        <StudyDetailPageFounder studyDetail={studyDetail} />
+        <StudyDetailPageFounder studyDetail={detailArray} />
         );
     }
   } else {
     return (
-      <StudyDetailPageApplicant studyDetail={studyDetail} />
+      <StudyDetailPageApplicant studyDetail={detailArray} />
     );
   }
 };
