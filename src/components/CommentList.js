@@ -25,7 +25,7 @@ const Content = styled.div`
   margin: 5px 0;
 `;
 
-const CommentList = ({ comments, isSelectable }) => {
+const CommentList = ({ comments, isSelectable, onCommentSelect }) => {
   const [selectedComments, setSelectedComments] = useState([]);
 
   const handleCommentClick = (index) => {
@@ -38,6 +38,8 @@ const CommentList = ({ comments, isSelectable }) => {
         // 선택되지 않은 경우, 선택 추가
         setSelectedComments([...selectedComments, index]);
       }
+
+      onCommentSelect(selectedComments.join(','));
     }
   };
 
