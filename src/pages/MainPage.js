@@ -83,30 +83,24 @@ const StudyList = () => {
   const studiesToDisplay = studies.slice(startplace, endplace);
 
   // localStorage에서 정보 가져오기 및 확인하기
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   // console.log(userInfo.name)
 
   return (
     <ListContainer>
       {studiesToDisplay.map((value, place) => (
-        // <Link
-        //   to={`/detail/${place}`}
-        //   style={{ textDecoration: "none" }}
-        //   key={place}
-        // >
-          <InformCard
-            postId={value.postId}
-            skill={value.skill}
-            place={value.place}
-            latitude={value.latitude}
-            longitude={value.longitude}
-            progress={value.progress}
-            peopleNum={value.peopleNum}
-            deadline={value.deadline}
-            type={value.type}
-            title={value.title}
-          />
-        // </Link>
+        <InformCard
+          postId={value.postId}
+          skill={value.skill}
+          place={value.place}
+          latitude={value.latitude}
+          longitude={value.longitude}
+          progress={value.progress}
+          peopleNum={value.peopleNum}
+          deadline={value.deadline}
+          type={value.type}
+          title={value.title}
+        />
       ))}
       <PaginationContainer>
         {studies.length > studiesPerPage && (
@@ -141,8 +135,6 @@ const StudyList = () => {
     </ListContainer>
   );
 };
-
-
 
 const EventMarkerContainer = ({
   position,
@@ -184,14 +176,14 @@ const EventMarkerContainer = ({
     >
       {isVisible && (
         <OverCard
-        skill={skill}
-        place={place}
-        progress={progress}
-        peopleNum={peopleNum}
-        deadline={deadline}
-        type={type}
-        title={title}
-        postId={postId}
+          skill={skill}
+          place={place}
+          progress={progress}
+          peopleNum={peopleNum}
+          deadline={deadline}
+          type={type}
+          title={title}
+          postId={postId}
           onClose={() => {
             setIsClicked(false);
             setIsVisible(false);
@@ -203,9 +195,9 @@ const EventMarkerContainer = ({
 };
 
 const MainPage = () => {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState(null); // 사용자의 현재 위치 설정
   const [loaded, setLoaded] = useState(false);
-  const [studies, setStudies] = useState([]); // 변경
+  const [studies, setStudies] = useState([]); // 데이터베이스에서 받아온 스터디 목록
 
   useEffect(() => {
     axios
@@ -218,9 +210,8 @@ const MainPage = () => {
       });
   }, []);
 
-
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
+    navigator.geolocation.getCurrentPosition(successHandler, errorHandler); // 사용자의 현재 위치를 받아옴
   }, []);
 
   const successHandler = (response) => {

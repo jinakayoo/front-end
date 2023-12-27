@@ -67,14 +67,14 @@ const CommentList = ({ comments, isSelectable, postId }) => {
     axios
       .put(`http://localhost:8080/api/comment/pick?commentIdList=${selectedComments}`)
       .then((response) => {
-        console.log(response.data)
-        // console.log(`http://localhost:8080/api/comment/pick?commentIdList=${selectedComments}`)
-        // window.location.reload();
+        console.log(response.data);
+        // 페이지 이동 후에 새로고침 실행
+        navigate(`/applicantlist/${postId}`);
+        window.location.reload();
       })
       .catch((error) => {
         console.error('Error fetching comment create:', error.message);
       });
-    navigate(`/applicantlist/${postId}`);
   };
 
   if (isSelectable) {

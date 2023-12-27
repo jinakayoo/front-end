@@ -102,6 +102,7 @@ const Login = () => {
       localStorage.setItem('userInfo', JSON.stringify(response.data.data));
     
       navigate('/');
+      window.location.reload();
     } catch (error) {
       console.error('Login failed:', error.message);
     }

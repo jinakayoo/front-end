@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import StarIcon from "../assets/icons/StarIcon.png";
 import DaumPostcode from "react-daum-postcode";
@@ -130,7 +130,8 @@ const FindAddressButton = styled.button`
 `;
 
 function FindAddress({ setAddressObj, setLatLng, setLocation }) {
-  const handleComplete = (data) => {
+  const handleComplete = useCallback((data) => {
+    // 도로명 주소의 노출 규칙에 따라 주소를 표시
     let fullAddress = data.address;
     let extraAddress = "";
     if (data.addressType === "R") {
@@ -151,11 +152,13 @@ function FindAddress({ setAddressObj, setLatLng, setLocation }) {
 
       setLocation(fullAddress);
 
+      // 사용자가 입력한 주소 정보를 입력 필드에 넣음
       const addressInput = document.getElementById("addressInput");
       if (addressInput) {
         addressInput.value = fullAddress;
       }
 
+      // 주소로 좌표를 검색 (Kakao Map API 사용)
       window.kakao.maps.load(() => {
         const geocoder = new window.kakao.maps.services.Geocoder();
         geocoder.addressSearch(fullAddress, (result, status) => {
@@ -168,6 +171,7 @@ function FindAddress({ setAddressObj, setLatLng, setLocation }) {
               townAddress: fullAddress,
             });
 
+            // 입력받은 주소의 위도, 경도 정보를 state에 저장
             setLatLng({
               latitude,
               longitude,
@@ -181,14 +185,16 @@ function FindAddress({ setAddressObj, setLatLng, setLocation }) {
         });
       });
     }
-  };
+  }, []);
 
+  // 주소 검색 API를 이용해 주소 찾기
   useEffect(() => {
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAOMAP_API_KEY}&libraries=services`;
     document.head.appendChild(script);
 
+    // Kakao Maps API가 로드되면 실행
     script.onload = () => {
       if (window.kakao && window.kakao.maps && window.kakao.maps.services) {
         const geocoder = new window.kakao.maps.services.Geocoder();
@@ -274,11 +280,13 @@ const StudyRecruitPage = () => {
       });
 
       navigate('/');
+      window.location.reload();
   };
 
   useEffect(() => {
     console.log("Latitude:", latLng.latitude);
     console.log("Longitude:", latLng.longitude);
+    // window.location.reload();
   }, [latLng]);
 
   return (

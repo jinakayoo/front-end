@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const PageContainer = styled.div`
   width: 335px;
-  height: 110px;
+  height: 100px;
   border-radius: 5px;
   padding: 10px 20px;
   padding-bottom: 32px;
@@ -20,7 +20,7 @@ const PageContainer = styled.div`
 
 const GridContainer = styled.div`
   width: 335px;
-  height: 110px;
+  height: 100px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto auto auto;
@@ -33,7 +33,7 @@ const TitleContainer = styled.div`
   font-size: 20px;
   font-family: "GmarketSans";
   width: 100%;
-  margin-bottom: 7px;
+  /* margin-bottom: 3px; */
 `;
 
 const ShortContainer = styled.div`

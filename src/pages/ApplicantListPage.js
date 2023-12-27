@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 
 const PageContainer = styled.div`
-  /* height: 1100px; */
+  height: 500px;
   background-color: #f6f1fb;
   padding-bottom: 100px;
 `;
